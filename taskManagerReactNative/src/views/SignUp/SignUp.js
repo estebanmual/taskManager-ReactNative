@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ScrollView, Text, View} from 'react-native';
 
 import {Button, TextInput} from 'react-native-paper';
@@ -7,6 +7,15 @@ import {colors, globalStyles} from '../../styles/globalStyles';
 
 const Login = props => {
   const {navigation} = props;
+
+  //Inputs del formulario
+  const [name, setName] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [city, setCity] = useState('');
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
+
   return (
     <ScrollView>
       <View style={globalStyles.registrationContainer}>
@@ -34,8 +43,14 @@ const Login = props => {
           <TextInput
             mode="outlined"
             label="Password"
-            secureTextEntry={true}
+            secureTextEntry={secureTextEntry}
             style={globalStyles.input}
+            right={
+              <TextInput.Icon
+                name="eye"
+                onPress={() => setSecureTextEntry(!secureTextEntry)}
+              />
+            }
           />
           <TextInput mode="outlined" label="City" style={globalStyles.input} />
         </View>
