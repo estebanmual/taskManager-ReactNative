@@ -20,6 +20,14 @@ const Login = props => {
       state: {username, password},
     });
 
+  const errorMessage = field => {
+    if (isFieldInError(field)) {
+      return getErrorsInField(field).map(errormessage => (
+        <Text style={globalStyles.errorText}>{errormessage}</Text>
+      ));
+    }
+  };
+
   const onSubmit = () => {
     validate({
       username: {required: true},
@@ -41,10 +49,7 @@ const Login = props => {
         </Text>
       </View>
       <View style={globalStyles.inputContainer}>
-        {isFieldInError('username') &&
-          getErrorsInField('username').map(errormessage => (
-            <Text style={globalStyles.errorText}>{errormessage}</Text>
-          ))}
+        {errorMessage('username')}
         <TextInput
           mode="outlined"
           label="Username"
@@ -54,10 +59,7 @@ const Login = props => {
           style={globalStyles.input}
           error={isFieldInError('username')}
         />
-        {isFieldInError('password') &&
-          getErrorsInField('password').map(errormessage => (
-            <Text style={globalStyles.errorText}>{errormessage}</Text>
-          ))}
+        {errorMessage('password')}
         <TextInput
           mode="outlined"
           label="Password"
