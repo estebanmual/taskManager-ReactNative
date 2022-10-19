@@ -16,6 +16,7 @@ const globalStyles = StyleSheet.create({
     height: 60,
     fontSize: 20,
     marginBottom: 15,
+    lineHeight: 60,
   },
   button: {
     height: 60,
