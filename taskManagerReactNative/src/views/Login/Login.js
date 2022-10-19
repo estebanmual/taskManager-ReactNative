@@ -9,11 +9,11 @@ import {colors, globalStyles} from '../../styles/globalStyles';
 const Login = props => {
   const {navigation} = props;
 
-  //Form inputs
+  //Inputs del formulario
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  //Form validation
+  //Validaciones del formulario
   const {validate, isFieldInError, getErrorsInField, isFormValid} =
     useValidation({
       state: {username, password},
@@ -51,15 +51,6 @@ const Login = props => {
             setUsername(text);
           }}
           style={globalStyles.input}
-          theme={{
-            colors: {
-              primary: colors.primary,
-              text: colors.secondary,
-              placeholder: colors.primary,
-              error: colors.error,
-            },
-            roundness: 10,
-          }}
           error={isFieldInError('username')}
         />
         {isFieldInError('password') &&
@@ -72,15 +63,6 @@ const Login = props => {
           secureTextEntry={true}
           onChangeText={text => setPassword(text)}
           style={globalStyles.input}
-          theme={{
-            colors: {
-              primary: colors.primary,
-              text: colors.secondary,
-              placeholder: colors.primary,
-              error: colors.error,
-            },
-            roundness: 10,
-          }}
           error={isFieldInError('username')}
         />
       </View>
