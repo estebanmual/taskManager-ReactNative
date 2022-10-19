@@ -33,7 +33,7 @@ const globalStyles = StyleSheet.create({
   },
   registrationTitleContainer: {
     alignItems: 'center',
-    marginTop: 90,
+    marginTop: 70,
   },
   registrationTitleText: {
     textAlign: 'center',
@@ -52,7 +52,7 @@ const globalStyles = StyleSheet.create({
     fontWeight: '400',
     fontFamily: 'Poppins-Regular',
     color: colors.secondary,
-    marginTop: 60,
+    marginVertical: 60,
   },
   registrationFooterTextSpan: {
     fontWeight: '600',
