@@ -56,6 +56,7 @@ const Login = props => {
               primary: colors.primary,
               text: colors.secondary,
               placeholder: colors.primary,
+              error: colors.error,
             },
             roundness: 10,
           }}
@@ -76,6 +77,7 @@ const Login = props => {
               primary: colors.primary,
               text: colors.secondary,
               placeholder: colors.primary,
+              error: colors.error,
             },
             roundness: 10,
           }}
