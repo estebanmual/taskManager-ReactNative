@@ -1,7 +1,8 @@
 import React from 'react';
+import {Text} from 'react-native';
 
 const App = () => {
-  return <></>;
+  return <Text>Desde App</Text>;
 };
 
 export default App;
