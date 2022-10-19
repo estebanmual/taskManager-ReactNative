@@ -19,8 +19,7 @@ const Login = props => {
       <View style={globalStyles.inputContainer}>
         <TextInput
           mode="outlined"
-          label="Email Address"
-          keyboardType="email-address"
+          label="Username"
           style={globalStyles.input}
           theme={{
             colors: {
