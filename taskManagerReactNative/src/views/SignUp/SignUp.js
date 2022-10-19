@@ -65,6 +65,10 @@ const Login = props => {
             label="Name"
             style={globalStyles.input}
             error={isFieldInError('name')}
+            onChangeText={text => {
+              setName(text);
+            }}
+            value={name}
           />
           {errorMessage('lastname')}
           <TextInput
@@ -72,6 +76,10 @@ const Login = props => {
             label="Lastname"
             style={globalStyles.input}
             error={isFieldInError('lastname')}
+            onChangeText={text => {
+              setLastname(text);
+            }}
+            value={lastname}
           />
           {errorMessage('username')}
           <TextInput
@@ -79,6 +87,10 @@ const Login = props => {
             label="Username"
             style={globalStyles.input}
             error={isFieldInError('username')}
+            onChangeText={text => {
+              setUsername(text);
+            }}
+            value={username}
           />
           {errorMessage('password')}
           <TextInput
@@ -87,6 +99,10 @@ const Login = props => {
             secureTextEntry={secureTextEntry}
             style={globalStyles.input}
             error={isFieldInError('password')}
+            onChangeText={text => {
+              setPassword(text);
+            }}
+            value={password}
             right={
               <TextInput.Icon
                 name="eye"
@@ -100,6 +116,10 @@ const Login = props => {
             label="City"
             style={globalStyles.input}
             error={isFieldInError('city')}
+            onChangeText={text => {
+              setCity(text);
+            }}
+            value={city}
           />
         </View>
 
