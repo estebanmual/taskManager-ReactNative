@@ -1,42 +1,68 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 
 import {Button, TextInput} from 'react-native-paper';
 
-import {colors} from '../../styles/globalStyles';
+import {colors, globalStyles} from '../../styles/globalStyles';
 
 const Login = () => {
   return (
-    <>
-      <View>
-        <Text>
-          <Text>Welcome,</Text>
+    <View style={globalStyles.registrationContainer}>
+      <View style={globalStyles.registrationTitleContainer}>
+        <Text style={globalStyles.registrationTitleText}>
+          <Text style={globalStyles.registrationTitleSpan}>Welcome,</Text>
           {'\n'}
           Glad to see you!
         </Text>
       </View>
-      <View>
+      <View style={globalStyles.inputContainer}>
         <TextInput
           mode="outlined"
-          label="Email"
-          activeOutlineColor={colors.primary}
+          label="Email Address"
+          keyboardType="email-address"
+          style={globalStyles.input}
+          theme={{
+            colors: {
+              primary: colors.primary,
+              text: colors.secondary,
+              placeholder: colors.primary,
+            },
+            roundness: 10,
+          }}
         />
         <TextInput
           mode="outlined"
           label="Password"
-          activeOutlineColor={colors.primary}
+          secureTextEntry={true}
+          style={globalStyles.input}
+          theme={{
+            colors: {
+              primary: colors.primary,
+              text: colors.secondary,
+              placeholder: colors.primary,
+            },
+            roundness: 10,
+          }}
         />
       </View>
 
-      <Button mode="contained" color={colors.primary}>
-        Login
+      <Button
+        mode="contained"
+        color={colors.primary}
+        theme={{roundness: 10}}
+        style={globalStyles.button}
+        uppercase={false}>
+        <Text style={globalStyles.buttonText}>Login</Text>
       </Button>
 
-      <Text>
+      <Text style={globalStyles.registrationFooterText}>
         Don't have an account?
-        <Text>Sign up now</Text>
+        <Text style={globalStyles.registrationFooterTextSpan}>
+          {' '}
+          Sign up now
+        </Text>
       </Text>
-    </>
+    </View>
   );
 };
 

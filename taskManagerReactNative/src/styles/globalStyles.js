@@ -7,6 +7,56 @@ const colors = {
 };
 
 // estilos globales
-const globalStyles = StyleSheet.create({});
+const globalStyles = StyleSheet.create({
+  inputContainer: {
+    marginTop: 60,
+  },
+  input: {
+    height: 60,
+    fontSize: 20,
+    marginBottom: 15,
+  },
+  button: {
+    height: 60,
+    justifyContent: 'center',
+    marginTop: 35,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 20,
+    fontFamily: 'Poppins-Regular',
+    fontWeight: '600',
+  },
+  registrationContainer: {
+    flex: 1,
+    paddingHorizontal: 50,
+  },
+  registrationTitleContainer: {
+    alignItems: 'center',
+    marginTop: 90,
+  },
+  registrationTitleText: {
+    textAlign: 'center',
+    fontSize: 36,
+    fontWeight: '400',
+    fontFamily: 'Poppins-Regular',
+    color: colors.secondary,
+  },
+  registrationTitleSpan: {
+    color: colors.primary,
+    fontWeight: '600',
+  },
+  registrationFooterText: {
+    textAlign: 'center',
+    fontSize: 13,
+    fontWeight: '400',
+    fontFamily: 'Poppins-Regular',
+    color: colors.secondary,
+    marginTop: 60,
+  },
+  registrationFooterTextSpan: {
+    fontWeight: '600',
+  },
+});
 
-export {colors};
+export {colors, globalStyles};
