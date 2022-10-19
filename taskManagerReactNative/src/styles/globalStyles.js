@@ -1,13 +1,45 @@
 import {StyleSheet} from 'react-native';
+import {DefaultTheme} from 'react-native-paper';
 
-// colores de la aplicación
+// Colores de la aplicación
 const colors = {
   primary: '#6391E7',
   secondary: '#474F61',
   error: '#DB222A',
 };
 
-// estilos globales
+// Tema de la aplicación
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: colors.primary,
+    text: colors.secondary,
+    placeholder: colors.primary,
+    error: colors.error,
+  },
+  fonts: {
+    light: {
+      fontFamily: 'Poppins-Light',
+      fontWeight: 'normal',
+    },
+    regular: {
+      fontFamily: 'Poppins-Regular',
+      fontWeight: 'normal',
+    },
+    medium: {
+      fontFamily: 'Poppins-Medium',
+      fontWeight: 'normal',
+    },
+    thin: {
+      fontFamily: 'Poppins-Thin',
+      fontWeight: 'normal',
+    },
+  },
+  roundness: 10,
+};
+
+// Estilos globales
 const globalStyles = StyleSheet.create({
   inputContainer: {
     marginTop: 60,
@@ -26,7 +58,7 @@ const globalStyles = StyleSheet.create({
   buttonText: {
     color: '#FFFFFF',
     fontSize: 20,
-    fontFamily: 'Poppins-Regular',
+    fontFamily: theme.fonts.medium.fontFamily,
     fontWeight: '600',
   },
   registrationContainer: {
@@ -41,7 +73,7 @@ const globalStyles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 36,
     fontWeight: '400',
-    fontFamily: 'Poppins-Regular',
+    fontFamily: theme.fonts.medium.fontFamily,
     color: colors.secondary,
   },
   registrationTitleSpan: {
@@ -52,7 +84,7 @@ const globalStyles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 13,
     fontWeight: '400',
-    fontFamily: 'Poppins-Regular',
+    fontFamily: theme.fonts.medium.fontFamily,
     color: colors.secondary,
     marginVertical: 60,
   },
@@ -64,4 +96,4 @@ const globalStyles = StyleSheet.create({
   },
 });
 
-export {colors, globalStyles};
+export {colors, globalStyles, theme};
