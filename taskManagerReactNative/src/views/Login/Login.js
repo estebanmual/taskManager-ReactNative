@@ -12,6 +12,7 @@ const Login = props => {
   //Inputs del formulario
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
 
   //Validaciones del formulario
   const {validate, isFieldInError, getErrorsInField, isFormValid} =
@@ -60,10 +61,16 @@ const Login = props => {
         <TextInput
           mode="outlined"
           label="Password"
-          secureTextEntry={true}
+          secureTextEntry={secureTextEntry}
           onChangeText={text => setPassword(text)}
           style={globalStyles.input}
           error={isFieldInError('username')}
+          right={
+            <TextInput.Icon
+              name="eye"
+              onPress={() => setSecureTextEntry(!secureTextEntry)}
+            />
+          }
         />
       </View>
 
