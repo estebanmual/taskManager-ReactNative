@@ -69,7 +69,7 @@ const Login = props => {
           error={isFieldInError('username')}
           right={
             <TextInput.Icon
-              name="eye"
+              name={secureTextEntry ? 'eye' : 'eye-off'}
               onPress={() => setSecureTextEntry(!secureTextEntry)}
             />
           }
@@ -79,7 +79,6 @@ const Login = props => {
       <Button
         mode="contained"
         color={colors.primary}
-        theme={{roundness: 10}}
         style={globalStyles.button}
         uppercase={false}
         onPress={() => onSubmit()}>
