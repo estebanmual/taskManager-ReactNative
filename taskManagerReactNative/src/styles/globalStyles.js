@@ -4,6 +4,7 @@ import {StyleSheet} from 'react-native';
 const colors = {
   primary: '#6391E7',
   secondary: '#474F61',
+  error: '#DB222A',
 };
 
 // estilos globales
@@ -56,6 +57,9 @@ const globalStyles = StyleSheet.create({
   },
   registrationFooterTextSpan: {
     fontWeight: '600',
+  },
+  errorText: {
+    color: colors.error,
   },
 });
 
