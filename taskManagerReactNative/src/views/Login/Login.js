@@ -1,11 +1,12 @@
 import React from 'react';
-import {ScrollView, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 
 import {Button, TextInput} from 'react-native-paper';
 
 import {colors, globalStyles} from '../../styles/globalStyles';
 
-const Login = () => {
+const Login = props => {
+  const {navigation} = props;
   return (
     <View style={globalStyles.registrationContainer}>
       <View style={globalStyles.registrationTitleContainer}>
@@ -57,7 +58,9 @@ const Login = () => {
 
       <Text style={globalStyles.registrationFooterText}>
         Don't have an account?
-        <Text style={globalStyles.registrationFooterTextSpan}>
+        <Text
+          style={globalStyles.registrationFooterTextSpan}
+          onPress={() => navigation.navigate('SignUp')}>
           {' '}
           Sign up now
         </Text>
