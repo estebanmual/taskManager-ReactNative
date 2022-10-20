@@ -21,7 +21,9 @@ function App() {
   const {loggedUser, isLoading, userInformation} = useContext(SessionContext);
 
   useEffect(() => {
-    setTimeout(() => loggedUser(), 500);
+    setTimeout(() => {
+      loggedUser();
+    }, 1000);
   }, []);
 
   if (isLoading) {
@@ -35,11 +37,7 @@ function App() {
     <PaperProvider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName={
-            userInformation === {} || userInformation === undefined
-              ? 'Home'
-              : 'Login'
-          }>
+          initialRouteName={userInformation !== null ? 'Home' : 'Login'}>
           <Stack.Screen
             name="Login"
             component={Login}
