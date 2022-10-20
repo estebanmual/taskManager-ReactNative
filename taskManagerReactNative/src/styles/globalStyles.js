@@ -7,7 +7,7 @@ const colors = {
   secondary: '#474F61',
   error: '#DB222A',
   surface: '#F5F6F8',
-  background: 'transparent',
+  background: '#F5F6F8',
 };
 
 // Tema de la aplicación
