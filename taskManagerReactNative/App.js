@@ -24,13 +24,13 @@ function App() {
     setTimeout(() => logIn(), 500);
   }, []);
 
-  if (isLoading) {
+  /* if (isLoading) {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <ActivityIndicator size="large" color={theme.colors.primary} />
       </View>
     );
-  }
+  } */
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
