@@ -1,11 +1,10 @@
 import 'react-native-gesture-handler';
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useEffect, useContext} from 'react';
 import {View} from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {ActivityIndicator, Provider as PaperProvider} from 'react-native-paper';
-import AsyncStorage from '@react-native-community/async-storage';
 
 // Vistas
 import Login from './src/views/Login/Login';
@@ -36,7 +35,11 @@ function App() {
     <PaperProvider theme={theme}>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName={userInformation === {} ? 'Login' : 'Home'}>
+          initialRouteName={
+            userInformation === {} || userInformation === undefined
+              ? 'Home'
+              : 'Login'
+          }>
           <Stack.Screen
             name="Login"
             component={Login}
