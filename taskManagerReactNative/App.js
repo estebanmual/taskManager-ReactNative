@@ -5,6 +5,7 @@ import {View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {ActivityIndicator, Provider as PaperProvider} from 'react-native-paper';
+import AsyncStorage from '@react-native-community/async-storage';
 
 // Vistas
 import Login from './src/views/Login/Login';
@@ -18,23 +19,24 @@ import SessionContext from './src/context/session/sessionContext';
 const Stack = createStackNavigator();
 
 function App() {
-  const {logIn, isLoading} = useContext(SessionContext);
+  const {loggedUser, isLoading, userInformation} = useContext(SessionContext);
 
   useEffect(() => {
-    setTimeout(() => logIn(), 500);
+    setTimeout(() => loggedUser(), 500);
   }, []);
 
-  /* if (isLoading) {
+  if (isLoading) {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <ActivityIndicator size="large" color={theme.colors.primary} />
       </View>
     );
-  } */
+  }
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
+        <Stack.Navigator
+          initialRouteName={userInformation === {} ? 'Login' : 'Home'}>
           <Stack.Screen
             name="Login"
             component={Login}
@@ -45,11 +47,16 @@ function App() {
             component={SignUp}
             options={{headerShown: false}}
           />
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{headerShown: false}}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
   );
-};
+}
 
 export default () => {
   return (

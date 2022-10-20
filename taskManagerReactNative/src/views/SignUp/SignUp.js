@@ -1,13 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {ScrollView, Text, View} from 'react-native';
 
 import {Button, TextInput} from 'react-native-paper';
 import {useValidation} from 'react-native-form-validator';
 
 import {colors, globalStyles} from '../../styles/globalStyles';
+import SessionContext from '../../context/session/sessionContext';
 
 const Login = props => {
   const {navigation} = props;
+  const {signUp} = useContext(SessionContext);
 
   //Inputs del formulario
   const [name, setName] = useState('');
@@ -42,9 +44,20 @@ const Login = props => {
       city: {required: true},
     });
     if (isFormValid()) {
-      console.log('Form is valid');
-    } else {
-      console.log('Form is invalid');
+      const userInformation = {
+        name,
+        lastname,
+        username,
+        password,
+        city,
+      };
+      signUp(userInformation);
+      setName('');
+      setLastname('');
+      setUsername('');
+      setPassword('');
+      setCity('');
+      navigation.navigate('Home');
     }
   };
 

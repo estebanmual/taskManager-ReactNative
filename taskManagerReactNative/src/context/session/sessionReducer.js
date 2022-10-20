@@ -1,9 +1,15 @@
 const SessionReducer = (state, action) => {
   switch (action.type) {
-    case 'NEW_USER':
+    case 'LOGGED_USER':
       return {
         ...state,
-        userInformation: action.userInformation,
+        userInformation: action.payload.userInformation,
+        isLoading: false,
+      };
+    case 'SIGN_UP':
+      return {
+        ...state,
+        userInformation: action.payload.userInformation,
         isLoading: false,
       };
     case 'LOG_IN':

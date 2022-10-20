@@ -1,8 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Text} from 'react-native';
 
+import SessionContext from '../../context/session/sessionContext';
+
 const Home = () => {
-  return <Text>Home</Text>;
+  const {userInformation} = useContext(SessionContext);
+  console.log('Usuario' + userInformation);
+  return <Text>{userInformation.name}</Text>;
 };
 
 export default Home;
