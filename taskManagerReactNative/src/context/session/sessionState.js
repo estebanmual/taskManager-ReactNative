@@ -52,6 +52,14 @@ const SessionState = props => {
     }
   };
 
+  const logOut = async () => {
+    await AsyncStorage.removeItem('userLogged');
+    dispatch({
+      type: 'LOG_OUT',
+      payload: {userInformation: {}},
+    });
+  };
+
   return (
     <SessionContext.Provider
       value={{
@@ -60,6 +68,7 @@ const SessionState = props => {
         logIn,
         signUp,
         loggedUser,
+        logOut,
       }}>
       {props.children}
     </SessionContext.Provider>

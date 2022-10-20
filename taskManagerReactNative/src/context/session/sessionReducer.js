@@ -18,6 +18,12 @@ const SessionReducer = (state, action) => {
         userInformation: action.userInformation,
         isLoading: false,
       };
+    case 'LOG_OUT':
+      return {
+        ...state,
+        userInformation: action.userInformation,
+        isLoading: false,
+      };
     default:
       return state;
   }
