@@ -36,8 +36,7 @@ function App() {
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName={userInformation !== null ? 'Home' : 'Login'}>
+        <Stack.Navigator initialRouteName={userInformation ? 'Home' : 'Login'}>
           <Stack.Screen
             name="Login"
             component={Login}
