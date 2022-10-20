@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {View} from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
@@ -12,17 +12,16 @@ import SignUp from './src/views/SignUp/SignUp';
 import Home from './src/views/Home/Home';
 
 import {theme} from './src/styles/globalStyles';
+import SessionState from './src/context/session/sessionState';
+import SessionContext from './src/context/session/sessionContext';
 
 const Stack = createStackNavigator();
 
-const App = () => {
-  const [isLoading, setIsLoading] = useState(true);
-  const [userInformation, setUserInformation] = useState(null);
+function App() {
+  const {logIn, isLoading} = useContext(SessionContext);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+    setTimeout(() => logIn(), 500);
   }, []);
 
   if (isLoading) {
@@ -35,27 +34,27 @@ const App = () => {
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
-        {userInformation === null ? (
-          <Stack.Navigator initialRouteName="Login">
-            <Stack.Screen
-              name="Login"
-              component={Login}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name="SignUp"
-              component={SignUp}
-              options={{headerShown: false}}
-            />
-          </Stack.Navigator>
-        ) : (
-          <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home" component={Home} />
-          </Stack.Navigator>
-        )}
+        <Stack.Navigator initialRouteName="Login">
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUp}
+            options={{headerShown: false}}
+          />
+        </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
   );
 };
 
-export default App;
+export default () => {
+  return (
+    <SessionState>
+      <App />
+    </SessionState>
+  );
+};
