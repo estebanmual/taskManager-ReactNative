@@ -15,7 +15,7 @@ const SessionReducer = (state, action) => {
     case 'LOG_IN':
       return {
         ...state,
-        userInformation: action.userInformation,
+        userInformation: action.payload.userInformation,
         isLoading: false,
       };
     case 'LOG_OUT':
