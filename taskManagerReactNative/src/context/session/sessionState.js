@@ -17,40 +17,46 @@ const SessionState = props => {
 
   // Actions
   const login = async (userInfo, navigation, setPassword, setUsername) => {
-    const user = await AsyncStorage.getItem(`user-${userInfo.username}`);
-    const userInformation = JSON.parse(user);
-    if (userInformation) {
-      if (userInformation.password === userInfo.password) {
+    try {
+      const user = await AsyncStorage.getItem(`user-${userInfo.username}`);
+      const userInformation = JSON.parse(user);
+      if (!userInformation) {
+        alert('Usuario no encontrado');
+        return;
+      } else if (userInformation.password !== userInfo.password) {
+        alert('Contraseña incorrecta');
+        return;
+      } else {
         await AsyncStorage.setItem('userLogged', userInformation.username);
         dispatch({
           type: 'LOG_IN',
-          payload: {userInformation},
+          payload: {
+            userInformation,
+          },
         });
         navigation.navigate('Home');
         setPassword('');
         setUsername('');
-      } else {
-        alert('Contraseña incorrecta');
       }
-    } else {
-      dispatch({
-        type: 'LOG_IN',
-        payload: {userInformation: {}},
-      });
-      alert('Usuario no registrado');
+    } catch (error) {
+      console.log(error);
     }
   };
 
   const signUp = async userInformation => {
-    await AsyncStorage.setItem(
-      `user-${userInformation.username}`,
-      JSON.stringify(userInformation),
-    );
-    await AsyncStorage.setItem('userLogged', userInformation.username);
-    dispatch({
-      type: 'SIGN_UP',
-      payload: {userInformation},
-    });
+    try {
+      await AsyncStorage.setItem(
+        `user-${userInformation.username}`,
+        JSON.stringify(userInformation),
+      );
+      await AsyncStorage.setItem('userLogged', userInformation.username);
+      dispatch({
+        type: 'SIGN_UP',
+        payload: {userInformation},
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const loggedUser = async () => {
@@ -72,12 +78,16 @@ const SessionState = props => {
     }
   };
 
-  const logOut = async (navigation, userInformation) => {
-    await AsyncStorage.removeItem('userLogged');
-    dispatch({
-      type: 'LOG_OUT',
-      payload: {userInformation: null},
-    });
+  const logOut = async () => {
+    try {
+      await AsyncStorage.removeItem('userLogged');
+      dispatch({
+        type: 'LOG_OUT',
+        payload: {userInformation: null},
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
