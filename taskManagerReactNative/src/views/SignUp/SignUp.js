@@ -1,13 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {ScrollView, Text, View} from 'react-native';
 
 import {Button, TextInput} from 'react-native-paper';
 import {useValidation} from 'react-native-form-validator';
 
 import {colors, globalStyles} from '../../styles/globalStyles';
+import SessionContext from '../../context/session/sessionContext';
 
 const Login = props => {
   const {navigation} = props;
+  const {signUp} = useContext(SessionContext);
 
   //Inputs del formulario
   const [name, setName] = useState('');
@@ -25,8 +27,10 @@ const Login = props => {
 
   const errorMessage = field => {
     if (isFieldInError(field)) {
-      return getErrorsInField(field).map(errormessage => (
-        <Text style={globalStyles.errorText}>{errormessage}</Text>
+      return getErrorsInField(field).map((errormessage, index) => (
+        <Text key={index} style={globalStyles.errorText}>
+          {errormessage}
+        </Text>
       ));
     }
   };
@@ -40,9 +44,20 @@ const Login = props => {
       city: {required: true},
     });
     if (isFormValid()) {
-      console.log('Form is valid');
-    } else {
-      console.log('Form is invalid');
+      const userInformation = {
+        name,
+        lastname,
+        username,
+        password,
+        city,
+      };
+      signUp(userInformation);
+      setName('');
+      setLastname('');
+      setUsername('');
+      setPassword('');
+      setCity('');
+      navigation.navigate('Home');
     }
   };
 
@@ -129,7 +144,7 @@ const Login = props => {
           style={globalStyles.button}
           uppercase={false}
           onPress={() => onSubmit()}>
-          <Text style={globalStyles.buttonText}>Login</Text>
+          <Text style={globalStyles.buttonText}>Sign Up</Text>
         </Button>
 
         <Text style={globalStyles.registrationFooterText}>

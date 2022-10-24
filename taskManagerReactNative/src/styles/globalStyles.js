@@ -6,6 +6,8 @@ const colors = {
   primary: '#6391E7',
   secondary: '#474F61',
   error: '#DB222A',
+  surface: '#F5F6F8',
+  background: '#F5F6F8',
 };
 
 // Tema de la aplicación
@@ -17,6 +19,8 @@ const theme = {
     text: colors.secondary,
     placeholder: colors.primary,
     error: colors.error,
+    surface: colors.surface,
+    background: colors.background,
   },
   fonts: {
     light: {
@@ -64,6 +68,7 @@ const globalStyles = StyleSheet.create({
   registrationContainer: {
     flex: 1,
     paddingHorizontal: 50,
+    backgroundColor: theme.colors.surface,
   },
   registrationTitleContainer: {
     alignItems: 'center',

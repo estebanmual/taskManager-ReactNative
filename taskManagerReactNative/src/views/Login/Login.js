@@ -1,13 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {Text, View} from 'react-native';
 
 import {Button, TextInput} from 'react-native-paper';
 import {useValidation} from 'react-native-form-validator';
 
 import {colors, globalStyles} from '../../styles/globalStyles';
+import SessionContext from '../../context/session/sessionContext';
 
 const Login = props => {
   const {navigation} = props;
+  const {login} = useContext(SessionContext);
 
   //Inputs del formulario
   const [username, setUsername] = useState('');
@@ -22,8 +24,10 @@ const Login = props => {
 
   const errorMessage = field => {
     if (isFieldInError(field)) {
-      return getErrorsInField(field).map(errormessage => (
-        <Text style={globalStyles.errorText}>{errormessage}</Text>
+      return getErrorsInField(field).map((errormessage, index) => (
+        <Text key={index} style={globalStyles.errorText}>
+          {errormessage}
+        </Text>
       ));
     }
   };
@@ -34,9 +38,11 @@ const Login = props => {
       password: {required: true},
     });
     if (isFormValid()) {
-      console.log('Form is valid');
-    } else {
-      console.log('Form is invalid');
+      const userInfo = {
+        username,
+        password,
+      };
+      login(userInfo, navigation, setPassword, setUsername);
     }
   };
   return (
@@ -56,6 +62,7 @@ const Login = props => {
           onChangeText={text => {
             setUsername(text);
           }}
+          value={username}
           style={globalStyles.input}
           error={isFieldInError('username')}
         />
@@ -65,6 +72,7 @@ const Login = props => {
           label="Password"
           secureTextEntry={secureTextEntry}
           onChangeText={text => setPassword(text)}
+          value={password}
           style={globalStyles.input}
           error={isFieldInError('username')}
           right={
