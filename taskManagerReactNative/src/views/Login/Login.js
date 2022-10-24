@@ -24,8 +24,10 @@ const Login = props => {
 
   const errorMessage = field => {
     if (isFieldInError(field)) {
-      return getErrorsInField(field).map(errormessage => (
-        <Text style={globalStyles.errorText}>{errormessage}</Text>
+      return getErrorsInField(field).map((errormessage, index) => (
+        <Text key={index} style={globalStyles.errorText}>
+          {errormessage}
+        </Text>
       ));
     }
   };
