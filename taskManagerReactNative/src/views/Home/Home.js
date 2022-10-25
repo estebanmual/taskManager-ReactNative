@@ -10,6 +10,7 @@ const Home = props => {
   const {logOut} = useContext(SessionContext);
   const cerrarSesion = () => {
     logOut();
+    navigation.navigate('Login');
   };
   return (
     <>
