@@ -13,7 +13,7 @@ const Home = props => {
   };
   return (
     <>
-      <Header />
+      <Header navigation={navigation} />
       <Button title="Cerrar sesión" onPress={() => cerrarSesion()} />
     </>
   );

@@ -8,18 +8,19 @@ import SessionContext from '../../context/session/sessionContext';
 import {avatarImages} from '../../helpers/images';
 import {theme} from '../../styles/globalStyles';
 
-const Header = () => {
+const Header = props => {
+  const {navigation} = props;
   const {userInformation} = useContext(SessionContext);
 
   const pressHandler = () => {
-    console.log('Pressed');
+    navigation.navigate('Profile');
   };
 
   if (userInformation) {
     return (
       <View style={styles.container}>
         <Text style={styles.headerText}>Hi, {userInformation.name} 👋</Text>
-        <Pressable style={styles.imageContainer} onPress={() => pressHandler()}>
+        <Pressable onPress={() => pressHandler()}>
           <Avatar.Image
             size={65}
             source={avatarImages[userInformation.avatarNumber + 1]}
@@ -39,6 +40,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     width: '100%',
+    backgroundColor: theme.colors.background,
   },
   headerText: {
     ...theme.fonts.regular,
@@ -46,7 +48,6 @@ const styles = StyleSheet.create({
     color: theme.colors.text,
     marginRight: 16,
   },
-  imageContainer: {},
 });
 
 export default Header;
