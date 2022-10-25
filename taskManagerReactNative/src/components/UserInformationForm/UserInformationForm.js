@@ -9,7 +9,7 @@ import SessionContext from '../../context/session/sessionContext';
 
 const UserInformationForm = props => {
   const {navigation} = props;
-  const {signUp, userInformation, logOut} = useContext(SessionContext);
+  const {signUp, userInformation, logOut, loading} = useContext(SessionContext);
 
   //Inputs del formulario
   const [name, setName] = useState('');
@@ -50,9 +50,10 @@ const UserInformationForm = props => {
   };
 
   const logOutHandler = () => {
+    loading();
     setTimeout(() => {
       logOut(navigation);
-    }, 2000);
+    }, 1000);
   };
 
   const onSubmit = () => {

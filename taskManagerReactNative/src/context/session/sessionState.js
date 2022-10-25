@@ -16,6 +16,12 @@ const SessionState = props => {
   const [state, dispatch] = useReducer(SessionReducer, initialState);
 
   // Actions
+  const loading = () => {
+    dispatch({
+      type: 'LOADING',
+    });
+  };
+
   const login = async (userInfo, navigation, setPassword, setUsername) => {
     try {
       const user = await AsyncStorage.getItem(`user-${userInfo.username}`);
@@ -35,8 +41,6 @@ const SessionState = props => {
           },
         });
         navigation.navigate('Home');
-        setPassword('');
-        setUsername('');
       }
     } catch (error) {
       console.log(error);
@@ -98,6 +102,7 @@ const SessionState = props => {
       value={{
         userInformation: state.userInformation,
         isLoading: state.isLoading,
+        loading,
         login,
         signUp,
         loggedUser,

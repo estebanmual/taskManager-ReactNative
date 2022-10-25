@@ -9,7 +9,7 @@ import SessionContext from '../../context/session/sessionContext';
 
 const Login = props => {
   const {navigation} = props;
-  const {login} = useContext(SessionContext);
+  const {login, loading} = useContext(SessionContext);
 
   //Inputs del formulario
   const [username, setUsername] = useState('');
@@ -42,7 +42,12 @@ const Login = props => {
         username,
         password,
       };
-      login(userInfo, navigation, setPassword, setUsername);
+      loading();
+      setUsername('');
+      setPassword('');
+      setTimeout(() => {
+        login(userInfo, navigation);
+      }, 1000);
     }
   };
   return (
