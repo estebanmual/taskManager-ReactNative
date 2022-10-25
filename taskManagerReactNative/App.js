@@ -54,7 +54,24 @@ function App() {
             component={Home}
             options={{headerShown: false}}
           />
-          <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen
+            name="Profile"
+            component={Profile}
+            options={{
+              headerStyle: {
+                backgroundColor: theme.colors.background,
+                elevation: 0,
+                shadowOpacity: 0,
+                borderBottomWidth: 0,
+              },
+              headerTintColor: theme.colors.primary,
+              headerTitleStyle: {
+                ...theme.fonts.medium,
+                fontSize: 20,
+              },
+              headerTitleAlign: 'center',
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
