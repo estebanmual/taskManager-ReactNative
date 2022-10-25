@@ -10,11 +10,11 @@ import {ActivityIndicator, Provider as PaperProvider} from 'react-native-paper';
 import Login from './src/views/Login/Login';
 import SignUp from './src/views/SignUp/SignUp';
 import Home from './src/views/Home/Home';
+import Profile from './src/views/Profile/Profile';
 
 import {theme} from './src/styles/globalStyles';
 import SessionState from './src/context/session/sessionState';
 import SessionContext from './src/context/session/sessionContext';
-import AsyncStorage from '@react-native-community/async-storage';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +25,7 @@ function App() {
     setTimeout(() => {
       loggedUser();
     }, 1000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isLoading) {
@@ -53,6 +54,7 @@ function App() {
             component={Home}
             options={{headerShown: false}}
           />
+          <Stack.Screen name="Profile" component={Profile} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
