@@ -51,6 +51,7 @@ const Login = props => {
         password,
         city,
       };
+      userInformation.avatarNumber = Math.floor(Math.random() * 50) + 1;
       signUp(userInformation);
       setName('');
       setLastname('');

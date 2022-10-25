@@ -14,6 +14,7 @@ import Home from './src/views/Home/Home';
 import {theme} from './src/styles/globalStyles';
 import SessionState from './src/context/session/sessionState';
 import SessionContext from './src/context/session/sessionContext';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const Stack = createStackNavigator();
 
