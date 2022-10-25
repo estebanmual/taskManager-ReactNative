@@ -1,30 +1,49 @@
 import React, {useContext} from 'react';
-import {View, Text, Pressable, StyleSheet} from 'react-native';
+import {View, ScrollView, StyleSheet} from 'react-native';
 
 import {Avatar} from 'react-native-paper';
 
+import UserInformationForm from '../../components/UserInformationForm/UserInformationForm';
 import SessionContext from '../../context/session/sessionContext';
 import {avatarImages} from '../../helpers/images';
 import {theme} from '../../styles/globalStyles';
 
-const Profile = () => {
+const Profile = props => {
+  const {navigation} = props;
   const {userInformation} = useContext(SessionContext);
 
-  return (
-    <View style={styles.container}>
-      <Avatar.Image
-        size={65}
-        source={avatarImages[userInformation.avatarNumber + 1]}
-      />
-    </View>
-  );
+  if (userInformation) {
+    return (
+      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+        <View style={styles.avatarContainer}>
+          <Avatar.Image
+            size={65}
+            source={avatarImages[userInformation.avatarNumber + 1]}
+          />
+        </View>
+        <View style={styles.formContainer}>
+          <UserInformationForm navigation={navigation} />
+        </View>
+      </ScrollView>
+    );
+  } else {
+    return null;
+  }
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
+    width: '85%',
     backgroundColor: theme.colors.background,
+    alignSelf: 'center',
+  },
+  avatarContainer: {
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  formContainer: {
+    marginBottom: 20,
+    backgroundColor: theme.colors.surface,
   },
 });
 

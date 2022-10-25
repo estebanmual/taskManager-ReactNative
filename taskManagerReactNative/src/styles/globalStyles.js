@@ -46,13 +46,14 @@ const theme = {
 // Estilos globales
 const globalStyles = StyleSheet.create({
   inputContainer: {
-    marginTop: 60,
+    backgroundColor: theme.colors.surface,
   },
   input: {
     height: 60,
     fontSize: 20,
     marginBottom: 15,
     lineHeight: 60,
+    backgroundColor: theme.colors.surface,
   },
   button: {
     height: 60,
@@ -72,7 +73,7 @@ const globalStyles = StyleSheet.create({
   },
   registrationTitleContainer: {
     alignItems: 'center',
-    marginTop: 70,
+    marginVertical: 50,
   },
   registrationTitleText: {
     textAlign: 'center',

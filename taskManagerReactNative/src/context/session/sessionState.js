@@ -78,7 +78,8 @@ const SessionState = props => {
     }
   };
 
-  const logOut = async () => {
+  const logOut = async props => {
+    const {navigate} = props;
     try {
       await AsyncStorage.removeItem('userLogged');
       dispatch({
@@ -87,7 +88,9 @@ const SessionState = props => {
       });
     } catch (error) {
       console.log(error);
+      return;
     }
+    navigate('Login');
   };
 
   return (

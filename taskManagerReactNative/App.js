@@ -59,7 +59,7 @@ function App() {
             component={Profile}
             options={{
               headerStyle: {
-                backgroundColor: theme.colors.background,
+                backgroundColor: theme.colors.surface,
                 elevation: 0,
                 shadowOpacity: 0,
                 borderBottomWidth: 0,
