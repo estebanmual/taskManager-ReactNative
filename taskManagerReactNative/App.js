@@ -10,6 +10,7 @@ import {ActivityIndicator, Provider as PaperProvider} from 'react-native-paper';
 import Login from './src/views/Login/Login';
 import SignUp from './src/views/SignUp/SignUp';
 import Home from './src/views/Home/Home';
+import Profile from './src/views/Profile/Profile';
 
 import {theme} from './src/styles/globalStyles';
 import SessionState from './src/context/session/sessionState';
@@ -24,6 +25,7 @@ function App() {
     setTimeout(() => {
       loggedUser();
     }, 1000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isLoading) {
@@ -51,6 +53,24 @@ function App() {
             name="Home"
             component={Home}
             options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Profile"
+            component={Profile}
+            options={{
+              headerStyle: {
+                backgroundColor: theme.colors.surface,
+                elevation: 0,
+                shadowOpacity: 0,
+                borderBottomWidth: 0,
+              },
+              headerTintColor: theme.colors.primary,
+              headerTitleStyle: {
+                ...theme.fonts.medium,
+                fontSize: 20,
+              },
+              headerTitleAlign: 'center',
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>
