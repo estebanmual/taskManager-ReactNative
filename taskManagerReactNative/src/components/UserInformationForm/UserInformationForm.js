@@ -96,7 +96,7 @@ const UserInformationForm = props => {
             setName(text);
           }}
           value={name}
-          disabled={!canEdit}
+          editable={canEdit}
         />
         {errorMessage('lastname')}
         <TextInput
@@ -108,7 +108,7 @@ const UserInformationForm = props => {
             setLastname(text);
           }}
           value={lastname}
-          disabled={!canEdit}
+          editable={canEdit}
         />
         {errorMessage('username')}
         <TextInput
@@ -120,7 +120,7 @@ const UserInformationForm = props => {
             setUsername(text);
           }}
           value={username}
-          disabled={!canEdit}
+          editable={canEdit}
         />
         {errorMessage('password')}
         <TextInput
@@ -139,7 +139,7 @@ const UserInformationForm = props => {
               onPress={() => setSecureTextEntry(!secureTextEntry)}
             />
           }
-          disabled={!canEdit}
+          editable={canEdit}
         />
         {errorMessage('city')}
         <TextInput
@@ -151,7 +151,7 @@ const UserInformationForm = props => {
             setCity(text);
           }}
           value={city}
-          disabled={!canEdit}
+          editable={canEdit}
         />
       </View>
       {userInformation ? (
