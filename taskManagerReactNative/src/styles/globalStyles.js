@@ -66,6 +66,13 @@ const globalStyles = StyleSheet.create({
     fontFamily: theme.fonts.medium.fontFamily,
     fontWeight: '600',
   },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+    backgroundColor: theme.colors.primary,
+  },
   registrationContainer: {
     flex: 1,
     paddingHorizontal: 50,
