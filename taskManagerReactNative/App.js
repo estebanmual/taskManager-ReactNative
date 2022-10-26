@@ -11,6 +11,7 @@ import Login from './src/views/Login/Login';
 import SignUp from './src/views/SignUp/SignUp';
 import Home from './src/views/Home/Home';
 import Profile from './src/views/Profile/Profile';
+import NewTask from './src/views/NewTask/NewTask';
 
 import {theme} from './src/styles/globalStyles';
 import SessionState from './src/context/session/sessionState';
@@ -57,6 +58,24 @@ function App() {
           <Stack.Screen
             name="Profile"
             component={Profile}
+            options={{
+              headerStyle: {
+                backgroundColor: theme.colors.surface,
+                elevation: 0,
+                shadowOpacity: 0,
+                borderBottomWidth: 0,
+              },
+              headerTintColor: theme.colors.primary,
+              headerTitleStyle: {
+                ...theme.fonts.medium,
+                fontSize: 20,
+              },
+              headerTitleAlign: 'center',
+            }}
+          />
+          <Stack.Screen
+            name="NewTask"
+            component={NewTask}
             options={{
               headerStyle: {
                 backgroundColor: theme.colors.surface,
