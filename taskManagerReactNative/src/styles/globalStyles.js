@@ -45,6 +45,17 @@ const theme = {
 
 // Estilos globales
 const globalStyles = StyleSheet.create({
+  headerStyle: {
+    backgroundColor: theme.colors.surface,
+    elevation: 0,
+    shadowOpacity: 0,
+    borderBottomWidth: 0,
+  },
+  headerTitleStyle: {
+    ...theme.fonts.medium,
+    fontSize: 20,
+  },
+
   inputContainer: {
     backgroundColor: theme.colors.surface,
   },
