@@ -14,15 +14,19 @@ const Profile = props => {
 
   if (userInformation) {
     return (
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-        <View style={styles.avatarContainer}>
-          <Avatar.Image
-            size={65}
-            source={avatarImages[userInformation.avatarNumber + 1]}
-          />
-        </View>
-        <View style={styles.formContainer}>
-          <UserInformationForm navigation={navigation} />
+      <ScrollView
+        style={styles.viewContainer}
+        showsVerticalScrollIndicator={false}>
+        <View style={styles.container}>
+          <View style={styles.avatarContainer}>
+            <Avatar.Image
+              size={65}
+              source={avatarImages[userInformation.avatarNumber + 1]}
+            />
+          </View>
+          <View style={styles.formContainer}>
+            <UserInformationForm navigation={navigation} />
+          </View>
         </View>
       </ScrollView>
     );
@@ -32,6 +36,9 @@ const Profile = props => {
 };
 
 const styles = StyleSheet.create({
+  viewContainer: {
+    backgroundColor: theme.colors.background,
+  },
   container: {
     width: '85%',
     backgroundColor: theme.colors.background,
@@ -43,7 +50,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     marginBottom: 20,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: theme.colors.background,
   },
 });
 
