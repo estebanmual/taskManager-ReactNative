@@ -21,7 +21,7 @@ const Profile = props => {
           <View style={styles.avatarContainer}>
             <Avatar.Image
               size={65}
-              source={avatarImages[userInformation.avatarNumber + 1]}
+              source={avatarImages[userInformation.avatarNumber - 1]}
             />
           </View>
           <View style={styles.formContainer}>
