@@ -7,6 +7,7 @@ import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 import {globalStyles, theme} from '../../styles/globalStyles';
 import TasksContext from '../../context/tasks/tasksContext';
 import SessionContext from '../../context/session/sessionContext';
+import {generarId} from '../../helpers';
 
 const NewTask = props => {
   const {addTask} = useContext(TasksContext);
@@ -38,7 +39,7 @@ const NewTask = props => {
   // Guardar nueva tarea
   const saveTask = () => {
     const task = {title, description, date};
-    addTask(task, userInformation.username);
+    addTask({...task, id: generarId(), done: false}, userInformation.username);
     navigation.goBack();
   };
 
