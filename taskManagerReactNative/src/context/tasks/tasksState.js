@@ -42,11 +42,60 @@ const TasksState = props => {
     });
   };
 
+  const loadTasks = async username => {
+    // Cargar las tareas del AsyncStorage
+    try {
+      const tasks = await AsyncStorage.getItem(`tasks-${username}`);
+      if (tasks) {
+        dispatch({
+          type: 'LOAD_TASKS',
+          payload: {
+            tasks: JSON.parse(tasks),
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const updateTask = async (task, username) => {
+    // Guardar la tarea en el AsyncStorage
+    try {
+      const tasks = await AsyncStorage.getItem(`tasks-${username}`);
+      if (tasks) {
+        const tasksParsed = JSON.parse(tasks);
+        const newTasks = tasksParsed.map(item => {
+          if (item.id === task.id) {
+            return task;
+          }
+          return item;
+        });
+        await AsyncStorage.setItem(
+          `tasks-${username}`,
+          JSON.stringify(newTasks),
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    // Agregar la tarea al state
+    dispatch({
+      type: 'UPDATE_TASK',
+      payload: {
+        task,
+      },
+    });
+  };
+
   return (
     <TasksContext.Provider
       value={{
         tasks: state.tasks,
         addTask,
+        loadTasks,
+        updateTask,
       }}>
       {props.children}
     </TasksContext.Provider>

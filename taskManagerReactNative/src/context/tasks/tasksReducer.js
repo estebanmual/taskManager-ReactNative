@@ -10,7 +10,16 @@ const TasksReducer = (state, action) => {
       return {
         ...state,
         tasks: action.payload.tasks,
-        isLoading: false,
+      };
+    case 'UPDATE_TASK':
+      return {
+        ...state,
+        tasks: state.tasks.map(item => {
+          if (item.id === action.payload.task.id) {
+            return action.payload.task;
+          }
+          return item;
+        }),
       };
     default:
       return state;
