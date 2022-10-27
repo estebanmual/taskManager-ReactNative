@@ -121,6 +121,13 @@ const globalStyles = StyleSheet.create({
   errorText: {
     color: colors.error,
   },
+  subtitle: {
+    ...theme.fonts.medium,
+    fontSize: 24,
+    color: theme.colors.primary,
+    width: '95%',
+    alignSelf: 'center',
+  },
 });
 
 export {colors, globalStyles, theme};
