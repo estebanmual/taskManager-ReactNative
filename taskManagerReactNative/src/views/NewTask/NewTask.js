@@ -1,12 +1,19 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {Text, View, StyleSheet, Pressable} from 'react-native';
 
 import {TextInput, Button} from 'react-native-paper';
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 
 import {globalStyles, theme} from '../../styles/globalStyles';
+import TasksContext from '../../context/tasks/tasksContext';
+import SessionContext from '../../context/session/sessionContext';
 
-const NewTask = () => {
+const NewTask = props => {
+  const {addTask} = useContext(TasksContext);
+  const {userInformation} = useContext(SessionContext);
+
+  const {navigation} = props;
+
   // Inputs formulario
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -27,6 +34,14 @@ const NewTask = () => {
       onChange: onChange,
     });
   };
+
+  // Guardar nueva tarea
+  const saveTask = () => {
+    const task = {title, description, date};
+    addTask(task, userInformation.username);
+    navigation.goBack();
+  };
+
   return (
     <View style={styles.viewContainer}>
       <View style={styles.container}>
@@ -61,7 +76,7 @@ const NewTask = () => {
           mode="contained"
           style={globalStyles.button}
           theme={theme}
-          onPress={() => console.log('Pressed')}>
+          onPress={() => saveTask()}>
           <Text style={globalStyles.buttonText}>Save Task</Text>
         </Button>
       </View>
