@@ -31,7 +31,7 @@ const TasksState = props => {
         dispatch({
           type: 'ADD_TASK',
           payload: {
-            orderTasks,
+            tasks: orderTasks,
           },
         });
       } else {
@@ -39,7 +39,7 @@ const TasksState = props => {
         dispatch({
           type: 'ADD_TASK',
           payload: {
-            task,
+            tasks: [task],
           },
         });
       }
