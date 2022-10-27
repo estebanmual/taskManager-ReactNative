@@ -11,7 +11,7 @@ import Login from './src/views/Login/Login';
 import SignUp from './src/views/SignUp/SignUp';
 import Home from './src/views/Home/Home';
 import Profile from './src/views/Profile/Profile';
-import NewTask from './src/views/NewTask/NewTask';
+import TaskInformation from './src/views/TaskInformation/TaskInformation';
 
 import {theme, globalStyles} from './src/styles/globalStyles';
 import SessionState from './src/context/session/sessionState';
@@ -69,15 +69,15 @@ function App() {
               }}
             />
             <Stack.Screen
-              name="NewTask"
-              component={NewTask}
-              options={{
-                title: 'New task',
+              name="TaskInformation"
+              component={TaskInformation}
+              options={({route}) => ({
+                title: route.params.headerTitle,
                 headerStyle: globalStyles.headerStyle,
                 headerTitleStyle: globalStyles.headerTitleStyle,
                 headerTintColor: theme.colors.primary,
                 headerTitleAlign: 'center',
-              }}
+              })}
             />
           </Stack.Navigator>
         </NavigationContainer>
