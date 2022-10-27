@@ -4,7 +4,7 @@ import {View, Text} from 'react-native';
 import {Button, TextInput} from 'react-native-paper';
 import {useValidation} from 'react-native-form-validator';
 
-import {colors, globalStyles} from '../../styles/globalStyles';
+import {theme, globalStyles} from '../../styles/globalStyles';
 import SessionContext from '../../context/session/sessionContext';
 
 const UserInformationForm = props => {
@@ -157,7 +157,7 @@ const UserInformationForm = props => {
       {userInformation ? (
         <Button
           mode="contained"
-          color={colors.error}
+          color={theme.colors.error}
           style={globalStyles.button}
           uppercase={false}
           onPress={() => logOutHandler()}>
@@ -166,7 +166,7 @@ const UserInformationForm = props => {
       ) : (
         <Button
           mode="contained"
-          color={colors.primary}
+          theme={theme}
           style={globalStyles.button}
           uppercase={false}
           onPress={() => onSubmit()}>

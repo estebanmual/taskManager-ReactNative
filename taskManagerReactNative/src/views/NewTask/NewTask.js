@@ -1,19 +1,24 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Pressable} from 'react-native';
+import {Text, View, StyleSheet, Pressable} from 'react-native';
 
-import {TextInput} from 'react-native-paper';
+import {TextInput, Button} from 'react-native-paper';
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 
 import {globalStyles, theme} from '../../styles/globalStyles';
 
 const NewTask = () => {
+  // Inputs formulario
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [date, setDate] = useState(new Date());
 
+  // Cambiar fecha cuando se selecciona en el calendario
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setDate(currentDate);
   };
 
+  // Abrir calendario
   const showDatePicker = () => {
     DateTimePickerAndroid.open({
       value: date,
@@ -26,13 +31,21 @@ const NewTask = () => {
     <View style={styles.viewContainer}>
       <View style={styles.container}>
         <View style={globalStyles.inputContainer}>
-          <TextInput mode="outlined" label="Title" style={globalStyles.input} />
+          <TextInput
+            mode="outlined"
+            label="Title"
+            style={globalStyles.input}
+            onChangeText={text => setTitle(text)}
+            value={title}
+          />
           <TextInput
             label="Description"
             mode="outlined"
             style={[globalStyles.input, {height: 100}]}
             multiline={true}
             numberOfLines={4}
+            onChangeText={text => setDescription(text)}
+            value={description}
           />
           <Pressable onPress={showDatePicker}>
             <TextInput
@@ -44,6 +57,13 @@ const NewTask = () => {
             />
           </Pressable>
         </View>
+        <Button
+          mode="contained"
+          style={globalStyles.button}
+          theme={theme}
+          onPress={() => console.log('Pressed')}>
+          <Text style={globalStyles.buttonText}>Save Task</Text>
+        </Button>
       </View>
     </View>
   );
@@ -53,16 +73,11 @@ const styles = StyleSheet.create({
   viewContainer: {
     backgroundColor: theme.colors.background,
     flex: 1,
+    justifyContent: 'center',
   },
   container: {
     width: '85%',
     backgroundColor: theme.colors.background,
-    alignSelf: 'center',
-    paddingTop: 20,
-  },
-  modalContainer: {
-    height: '50%',
-    width: '85%',
     alignSelf: 'center',
   },
 });

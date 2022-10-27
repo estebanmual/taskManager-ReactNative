@@ -4,7 +4,6 @@ import {Image} from 'react-native';
 import {FAB} from 'react-native-paper';
 
 import Header from '../../components/Header/Header';
-import SessionContext from '../../context/session/sessionContext';
 import {globalStyles} from '../../styles/globalStyles';
 
 const Home = props => {
