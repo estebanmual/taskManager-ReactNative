@@ -22,23 +22,32 @@ const Home = props => {
   }, [userInformation]);
 
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      <Header navigation={navigation} />
-      <Image source={require('../../assets/images/home.png')} />
-      <Text style={globalStyles.subtitle}>
-        {tasks.length === 0 ? 'No tasks' : 'Tasks'}
-      </Text>
-      {tasks.length > 0 &&
-        tasks.map(task => (
-          <Task key={task.id} task={task} username={userInformation.username} />
-        ))}
+    <>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Header navigation={navigation} />
+        <Image source={require('../../assets/images/home.png')} />
+        <Text style={globalStyles.subtitle}>
+          {tasks.length === 0 ? 'No tasks' : 'Tasks'}
+        </Text>
+        {tasks.length > 0 &&
+          tasks.map(task => (
+            <Task
+              key={task.id}
+              task={task}
+              username={userInformation.username}
+              navigate={navigation.navigate}
+            />
+          ))}
+      </ScrollView>
       <FAB
         style={globalStyles.fab}
         icon="plus"
         color={'#FFF'}
-        onPress={() => navigation.navigate('NewTask')}
+        onPress={() =>
+          navigation.navigate('TaskInformation', {headerTitle: 'New Task'})
+        }
       />
-    </ScrollView>
+    </>
   );
 };
 
