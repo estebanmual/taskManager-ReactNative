@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import TasksReducer from './tasksReducer';
 import TasksContext from './tasksContext';
+import {bubbleSortByDate} from '../../helpers';
 
 const TasksState = props => {
   // Crear el state inicial
@@ -22,24 +23,30 @@ const TasksState = props => {
       if (tasks) {
         const tasksParsed = JSON.parse(tasks);
         tasksParsed.push(task);
+        const orderTasks = bubbleSortByDate(tasksParsed);
         await AsyncStorage.setItem(
           `tasks-${username}`,
-          JSON.stringify(tasksParsed),
+          JSON.stringify(orderTasks),
         );
+        dispatch({
+          type: 'ADD_TASK',
+          payload: {
+            orderTasks,
+          },
+        });
       } else {
         await AsyncStorage.setItem(`tasks-${username}`, JSON.stringify([task]));
+        dispatch({
+          type: 'ADD_TASK',
+          payload: {
+            task,
+          },
+        });
       }
     } catch (error) {
       console.log(error);
+      return;
     }
-
-    // Agregar la tarea al state
-    dispatch({
-      type: 'ADD_TASK',
-      payload: {
-        task,
-      },
-    });
   };
 
   const loadTasks = async username => {
