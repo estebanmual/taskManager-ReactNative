@@ -1,11 +1,17 @@
 const TasksReducer = (state, action) => {
   switch (action.type) {
-    case 'LOADING':
     case 'ADD_TASK':
-      return {
-        ...state,
-        tasks: [...state.tasks, action.payload.task],
-      };
+      if (action.payload.orderTasks) {
+        return {
+          ...state,
+          tasks: action.payload.orderTasks,
+        };
+      } else {
+        return {
+          ...state,
+          tasks: [action.payload.task],
+        };
+      }
     case 'LOAD_TASKS':
       return {
         ...state,
