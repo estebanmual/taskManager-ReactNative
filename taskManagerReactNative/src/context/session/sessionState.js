@@ -22,7 +22,7 @@ const SessionState = props => {
     });
   };
 
-  const login = async (userInfo, navigation, setPassword, setUsername) => {
+  const login = async (userInfo, navigation) => {
     try {
       const user = await AsyncStorage.getItem(`user-${userInfo.username}`);
       const userInformation = JSON.parse(user);
