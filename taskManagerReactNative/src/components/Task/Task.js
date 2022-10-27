@@ -13,6 +13,8 @@ const Task = props => {
 
   const [checked, setChecked] = useState(task.done);
 
+  const expiredTask = new Date(task.date) < new Date();
+
   const handleDoneTask = () => {
     setChecked(!checked);
     updateTask({...task, done: !task.done}, username);
@@ -25,9 +27,30 @@ const Task = props => {
         color={theme.colors.primary}
       />
       <View style={styles.informationContainer}>
-        <Text style={styles.title}>{task.title}</Text>
-        <Text style={styles.description}>{task.description}</Text>
-        <Text style={styles.date}>{formatearFecha(task.date)}</Text>
+        <Text
+          style={[
+            styles.title,
+            expiredTask && styles.expiredTask,
+            checked && styles.completedTask,
+          ]}>
+          {task.title}
+        </Text>
+        <Text
+          style={[
+            styles.description,
+            expiredTask && styles.expiredTask,
+            checked && styles.completedTask,
+          ]}>
+          {task.description}
+        </Text>
+        <Text
+          style={[
+            styles.date,
+            expiredTask && styles.expiredTask,
+            checked && styles.completedTask,
+          ]}>
+          {formatearFecha(task.date)}
+        </Text>
       </View>
     </View>
   );
@@ -35,11 +58,15 @@ const Task = props => {
 
 const styles = StyleSheet.create({
   taskContainer: {
+    alignSelf: 'center',
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
-    width: '100%',
-    backgroundColor: theme.colors.background,
+    width: '95%',
+    backgroundColor: '#FFF',
+    borderRadius: theme.roundness,
+    borderBottomColor: theme.colors.secondary,
+    borderBottomWidth: 1,
   },
   informationContainer: {
     marginLeft: 10,
@@ -59,6 +86,12 @@ const styles = StyleSheet.create({
     ...theme.fonts.regular,
     fontSize: 14,
     color: theme.colors.primary,
+  },
+  expiredTask: {
+    color: theme.colors.error,
+  },
+  completedTask: {
+    color: theme.colors.completed,
   },
 });
 

@@ -8,6 +8,8 @@ const colors = {
   error: '#DB222A',
   surface: '#F5F6F8',
   background: '#F5F6F8',
+  text: '#474F61',
+  completed: '#7AC74F',
 };
 
 // Tema de la aplicación
@@ -16,11 +18,12 @@ const theme = {
   colors: {
     ...DefaultTheme.colors,
     primary: colors.primary,
-    text: colors.secondary,
+    text: colors.text,
     placeholder: colors.primary,
     error: colors.error,
     surface: colors.surface,
     background: colors.background,
+    completed: colors.completed,
   },
   fonts: {
     light: {
