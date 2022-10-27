@@ -23,7 +23,7 @@ const Header = props => {
         <Pressable onPress={() => pressHandler()}>
           <Avatar.Image
             size={65}
-            source={avatarImages[userInformation.avatarNumber + 1]}
+            source={avatarImages[userInformation.avatarNumber - 1]}
           />
         </Pressable>
       </View>

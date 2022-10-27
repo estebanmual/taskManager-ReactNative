@@ -22,15 +22,27 @@ const SessionState = props => {
     });
   };
 
-  const login = async (userInfo, navigation, setPassword, setUsername) => {
+  const login = async (userInfo, navigation) => {
     try {
       const user = await AsyncStorage.getItem(`user-${userInfo.username}`);
       const userInformation = JSON.parse(user);
       if (!userInformation) {
         alert('Usuario no encontrado');
+        dispatch({
+          type: 'LOG_IN',
+          payload: {
+            userInformation,
+          },
+        });
         return;
       } else if (userInformation.password !== userInfo.password) {
         alert('Contraseña incorrecta');
+        dispatch({
+          type: 'LOG_IN',
+          payload: {
+            userInformation,
+          },
+        });
         return;
       } else {
         await AsyncStorage.setItem('userLogged', userInformation.username);
