@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import {Image, Text} from 'react-native';
+import {Image, Text, ScrollView} from 'react-native';
 
 import {FAB} from 'react-native-paper';
 
@@ -22,10 +22,12 @@ const Home = props => {
   }, [userInformation]);
 
   return (
-    <>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <Header navigation={navigation} />
       <Image source={require('../../assets/images/home.png')} />
-      {tasks.length === 0 ? <Text>No tasks</Text> : <Text>Tasks</Text>}
+      <Text style={globalStyles.subtitle}>
+        {tasks.length === 0 ? 'No tasks' : 'Tasks'}
+      </Text>
       {tasks.length > 0 &&
         tasks.map(task => (
           <Task key={task.id} task={task} username={userInformation.username} />
@@ -36,7 +38,7 @@ const Home = props => {
         color={'#FFF'}
         onPress={() => navigation.navigate('NewTask')}
       />
-    </>
+    </ScrollView>
   );
 };
 
