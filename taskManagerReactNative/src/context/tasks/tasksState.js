@@ -15,9 +15,24 @@ const TasksState = props => {
   const [state, dispatch] = useReducer(TasksReducer, initialState);
 
   // Actions
-  const addTask = async task => {
+  const addTask = async (task, username) => {
     // Guardar la tarea en el AsyncStorage
-    console.log(state);
+    try {
+      const tasks = await AsyncStorage.getItem(`tasks-${username}`);
+      if (tasks) {
+        const tasksParsed = JSON.parse(tasks);
+        tasksParsed.push(task);
+        await AsyncStorage.setItem(
+          `tasks-${username}`,
+          JSON.stringify(tasksParsed),
+        );
+      } else {
+        await AsyncStorage.setItem(`tasks-${username}`, JSON.stringify([task]));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
     // Agregar la tarea al state
     dispatch({
       type: 'ADD_TASK',
