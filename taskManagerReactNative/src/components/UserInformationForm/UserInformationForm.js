@@ -4,7 +4,7 @@ import {View, Text} from 'react-native';
 import {Button, TextInput} from 'react-native-paper';
 import {useValidation} from 'react-native-form-validator';
 
-import {colors, globalStyles} from '../../styles/globalStyles';
+import {theme, globalStyles} from '../../styles/globalStyles';
 import SessionContext from '../../context/session/sessionContext';
 
 const UserInformationForm = props => {
@@ -96,7 +96,7 @@ const UserInformationForm = props => {
             setName(text);
           }}
           value={name}
-          disabled={!canEdit}
+          editable={canEdit}
         />
         {errorMessage('lastname')}
         <TextInput
@@ -108,7 +108,7 @@ const UserInformationForm = props => {
             setLastname(text);
           }}
           value={lastname}
-          disabled={!canEdit}
+          editable={canEdit}
         />
         {errorMessage('username')}
         <TextInput
@@ -120,7 +120,7 @@ const UserInformationForm = props => {
             setUsername(text);
           }}
           value={username}
-          disabled={!canEdit}
+          editable={canEdit}
         />
         {errorMessage('password')}
         <TextInput
@@ -139,7 +139,7 @@ const UserInformationForm = props => {
               onPress={() => setSecureTextEntry(!secureTextEntry)}
             />
           }
-          disabled={!canEdit}
+          editable={canEdit}
         />
         {errorMessage('city')}
         <TextInput
@@ -151,13 +151,13 @@ const UserInformationForm = props => {
             setCity(text);
           }}
           value={city}
-          disabled={!canEdit}
+          editable={canEdit}
         />
       </View>
       {userInformation ? (
         <Button
           mode="contained"
-          color={colors.error}
+          color={theme.colors.error}
           style={globalStyles.button}
           uppercase={false}
           onPress={() => logOutHandler()}>
@@ -166,7 +166,7 @@ const UserInformationForm = props => {
       ) : (
         <Button
           mode="contained"
-          color={colors.primary}
+          theme={theme}
           style={globalStyles.button}
           uppercase={false}
           onPress={() => onSubmit()}>

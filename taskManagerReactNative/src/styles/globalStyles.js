@@ -45,6 +45,17 @@ const theme = {
 
 // Estilos globales
 const globalStyles = StyleSheet.create({
+  headerStyle: {
+    backgroundColor: theme.colors.surface,
+    elevation: 0,
+    shadowOpacity: 0,
+    borderBottomWidth: 0,
+  },
+  headerTitleStyle: {
+    ...theme.fonts.medium,
+    fontSize: 20,
+  },
+
   inputContainer: {
     backgroundColor: theme.colors.surface,
   },
@@ -65,6 +76,13 @@ const globalStyles = StyleSheet.create({
     fontSize: 20,
     fontFamily: theme.fonts.medium.fontFamily,
     fontWeight: '600',
+  },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+    backgroundColor: theme.colors.primary,
   },
   registrationContainer: {
     flex: 1,
