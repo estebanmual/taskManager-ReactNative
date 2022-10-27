@@ -16,6 +16,7 @@ import NewTask from './src/views/NewTask/NewTask';
 import {theme, globalStyles} from './src/styles/globalStyles';
 import SessionState from './src/context/session/sessionState';
 import SessionContext from './src/context/session/sessionContext';
+import TasksState from './src/context/tasks/tasksState';
 
 const Stack = createStackNavigator();
 
@@ -37,48 +38,51 @@ function App() {
     );
   }
   return (
-    <PaperProvider theme={theme}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName={userInformation ? 'Home' : 'Login'}>
-          <Stack.Screen
-            name="Login"
-            component={Login}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="SignUp"
-            component={SignUp}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="Profile"
-            component={Profile}
-            options={{
-              headerStyle: globalStyles.headerStyle,
-              headerTitleStyle: globalStyles.headerTitleStyle,
-              headerTintColor: theme.colors.primary,
-              headerTitleAlign: 'center',
-            }}
-          />
-          <Stack.Screen
-            name="NewTask"
-            component={NewTask}
-            options={{
-              title: 'New task',
-              headerStyle: globalStyles.headerStyle,
-              headerTitleStyle: globalStyles.headerTitleStyle,
-              headerTintColor: theme.colors.primary,
-              headerTitleAlign: 'center',
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
+    <TasksState>
+      <PaperProvider theme={theme}>
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName={userInformation ? 'Home' : 'Login'}>
+            <Stack.Screen
+              name="Login"
+              component={Login}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="SignUp"
+              component={SignUp}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Profile"
+              component={Profile}
+              options={{
+                headerStyle: globalStyles.headerStyle,
+                headerTitleStyle: globalStyles.headerTitleStyle,
+                headerTintColor: theme.colors.primary,
+                headerTitleAlign: 'center',
+              }}
+            />
+            <Stack.Screen
+              name="NewTask"
+              component={NewTask}
+              options={{
+                title: 'New task',
+                headerStyle: globalStyles.headerStyle,
+                headerTitleStyle: globalStyles.headerTitleStyle,
+                headerTintColor: theme.colors.primary,
+                headerTitleAlign: 'center',
+              }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
+    </TasksState>
   );
 }
 
