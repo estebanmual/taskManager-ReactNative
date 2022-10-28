@@ -25,7 +25,7 @@ const Task = props => {
   };
 
   return (
-    <Pressable onLongPress={() => openTaskDetails()}>
+    <Pressable onPress={() => openTaskDetails()}>
       <View style={styles.taskContainer}>
         <Checkbox
           status={checked ? 'checked' : 'unchecked'}
