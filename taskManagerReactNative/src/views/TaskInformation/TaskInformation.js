@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {Text, View, StyleSheet, Pressable} from 'react-native';
+import {Text, View, StyleSheet, Pressable, Alert} from 'react-native';
 
 import {TextInput, Button, FAB} from 'react-native-paper';
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
@@ -10,9 +10,8 @@ import SessionContext from '../../context/session/sessionContext';
 import {generarId} from '../../helpers';
 
 const TaskInformation = props => {
-  const {addTask, deleteTask} = useContext(TasksContext);
+  const {addTask, deleteTask, updateTask} = useContext(TasksContext);
   const {userInformation} = useContext(SessionContext);
-  console.log(props);
   const {navigation, route} = props;
 
   // Inputs formulario
@@ -52,8 +51,16 @@ const TaskInformation = props => {
 
   // Guardar nueva tarea
   const saveTask = () => {
-    const task = {title, description, date};
-    addTask({...task, id: generarId(), done: false}, userInformation.username);
+    if (route.params.task) {
+      const task = {title, description, date};
+      updateTask({...task, id: route.params.task.id}, userInformation.username);
+    } else {
+      const task = {title, description, date};
+      addTask(
+        {...task, id: generarId(), done: false},
+        userInformation.username,
+      );
+    }
     navigation.goBack();
   };
 
@@ -61,6 +68,17 @@ const TaskInformation = props => {
   const removeTask = () => {
     deleteTask(route.params.task.id, userInformation.username);
     navigation.goBack();
+  };
+
+  const showConfirmation = () => {
+    Alert.alert(
+      'Do you want to delete this task?',
+      'This action cannot be undone',
+      [
+        {text: 'Yes, delete', onPress: () => removeTask()},
+        {text: 'Cancel', style: 'cancel'},
+      ],
+    );
   };
 
   return (
@@ -110,7 +128,7 @@ const TaskInformation = props => {
             style={globalStyles.button}
             color={theme.colors.error}
             uppercase={false}
-            onPress={() => removeTask()}>
+            onPress={() => showConfirmation()}>
             <Text style={globalStyles.buttonText}>Delete Task</Text>
           </Button>
         )}
