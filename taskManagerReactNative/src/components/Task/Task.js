@@ -55,7 +55,7 @@ const Task = props => {
               expiredTask && styles.expiredTask,
               checked && styles.completedTask,
             ]}>
-            {formatearFecha(task.date)}
+            {formatearFecha(task.date, 'completaCorta')}
           </Text>
         </View>
       </View>
