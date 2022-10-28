@@ -1,7 +1,7 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {Text, View, StyleSheet, Pressable} from 'react-native';
 
-import {TextInput, Button} from 'react-native-paper';
+import {TextInput, Button, FAB} from 'react-native-paper';
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 
 import {globalStyles, theme} from '../../styles/globalStyles';
@@ -10,7 +10,7 @@ import SessionContext from '../../context/session/sessionContext';
 import {generarId} from '../../helpers';
 
 const TaskInformation = props => {
-  const {addTask} = useContext(TasksContext);
+  const {addTask, deleteTask} = useContext(TasksContext);
   const {userInformation} = useContext(SessionContext);
   console.log(props);
   const {navigation, route} = props;
@@ -54,6 +54,12 @@ const TaskInformation = props => {
   const saveTask = () => {
     const task = {title, description, date};
     addTask({...task, id: generarId(), done: false}, userInformation.username);
+    navigation.goBack();
+  };
+
+  // Borrar tarea
+  const removeTask = () => {
+    deleteTask(route.params.task.id, userInformation.username);
     navigation.goBack();
   };
 
@@ -104,11 +110,22 @@ const TaskInformation = props => {
             style={globalStyles.button}
             color={theme.colors.error}
             uppercase={false}
-            onPress={() => saveTask()}>
+            onPress={() => removeTask()}>
             <Text style={globalStyles.buttonText}>Delete Task</Text>
           </Button>
         )}
       </View>
+      {route.params.task && (
+        <FAB
+          style={[
+            globalStyles.fab,
+            editable && {backgroundColor: theme.colors.error},
+          ]}
+          icon={editable ? 'cancel' : 'pencil'}
+          color={'#FFF'}
+          onPress={() => setEditable(!editable)}
+        />
+      )}
     </View>
   );
 };
