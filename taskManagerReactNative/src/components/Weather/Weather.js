@@ -66,7 +66,8 @@ const Weather = () => {
                   uri: `http:${day.day.condition.icon}`,
                 }}
               />
-              <Text style={[styles.dayText, isToday(day.date) && {color: '#FFF'}]}>
+              <Text
+                style={[styles.dayText, isToday(day.date) && {color: '#FFF'}]}>
                 {day.day.avgtemp_c}°
               </Text>
             </View>
