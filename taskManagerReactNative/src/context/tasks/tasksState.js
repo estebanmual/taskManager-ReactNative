@@ -96,6 +96,31 @@ const TasksState = props => {
     });
   };
 
+  const deleteTask = async (id, username) => {
+    // Eliminar la tarea del AsyncStorage
+    try {
+      const tasks = await AsyncStorage.getItem(`tasks-${username}`);
+      if (tasks) {
+        const tasksParsed = JSON.parse(tasks);
+        const newTasks = tasksParsed.filter(item => item.id !== id);
+        await AsyncStorage.setItem(
+          `tasks-${username}`,
+          JSON.stringify(newTasks),
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    // Eliminar la tarea del state
+    dispatch({
+      type: 'DELETE_TASK',
+      payload: {
+        id,
+      },
+    });
+  };
+
   return (
     <TasksContext.Provider
       value={{
@@ -103,6 +128,7 @@ const TasksState = props => {
         addTask,
         loadTasks,
         updateTask,
+        deleteTask,
       }}>
       {props.children}
     </TasksContext.Provider>
