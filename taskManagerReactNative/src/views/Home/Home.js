@@ -1,9 +1,10 @@
 import React, {useContext, useEffect} from 'react';
-import {Image, Text, ScrollView, View} from 'react-native';
+import {Text, ScrollView, View} from 'react-native';
 
 import {FAB} from 'react-native-paper';
 
 import Header from '../../components/Header/Header';
+import Weather from '../../components/Weather/Weather';
 import Task from '../../components/Task/Task';
 import TasksContext from '../../context/tasks/tasksContext';
 import SessionContext from '../../context/session/sessionContext';
@@ -25,7 +26,7 @@ const Home = props => {
     <>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header navigation={navigation} />
-        <Image source={require('../../assets/images/home.png')} />
+        <Weather />
         <Text style={globalStyles.subtitle}>
           {tasks.length === 0 ? 'No tasks' : 'Tasks'}
         </Text>
