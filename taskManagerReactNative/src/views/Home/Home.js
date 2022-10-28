@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import {Image, Text, ScrollView} from 'react-native';
+import {Image, Text, ScrollView, View} from 'react-native';
 
 import {FAB} from 'react-native-paper';
 
@@ -29,8 +29,8 @@ const Home = props => {
         <Text style={globalStyles.subtitle}>
           {tasks.length === 0 ? 'No tasks' : 'Tasks'}
         </Text>
-        {tasks.length > 0 &&
-          tasks.map(task => (
+        <View style={{marginBottom: 15}}>
+          {tasks.map(task => (
             <Task
               key={task.id}
               task={task}
@@ -38,6 +38,7 @@ const Home = props => {
               navigate={navigation.navigate}
             />
           ))}
+        </View>
       </ScrollView>
       <FAB
         style={globalStyles.fab}
