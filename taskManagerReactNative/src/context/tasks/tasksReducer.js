@@ -1,10 +1,9 @@
 const TasksReducer = (state, action) => {
   switch (action.type) {
-    case 'LOADING':
     case 'ADD_TASK':
       return {
         ...state,
-        tasks: [...state.tasks, action.payload.task],
+        tasks: action.payload.tasks,
       };
     case 'LOAD_TASKS':
       return {
@@ -20,6 +19,11 @@ const TasksReducer = (state, action) => {
           }
           return item;
         }),
+      };
+    case 'DELETE_TASK':
+      return {
+        ...state,
+        tasks: state.tasks.filter(item => item.id !== action.payload.id),
       };
     default:
       return state;

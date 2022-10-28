@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import TasksReducer from './tasksReducer';
 import TasksContext from './tasksContext';
+import {bubbleSortByDate} from '../../helpers';
 
 const TasksState = props => {
   // Crear el state inicial
@@ -22,24 +23,30 @@ const TasksState = props => {
       if (tasks) {
         const tasksParsed = JSON.parse(tasks);
         tasksParsed.push(task);
+        const orderTasks = bubbleSortByDate(tasksParsed);
         await AsyncStorage.setItem(
           `tasks-${username}`,
-          JSON.stringify(tasksParsed),
+          JSON.stringify(orderTasks),
         );
+        dispatch({
+          type: 'ADD_TASK',
+          payload: {
+            tasks: orderTasks,
+          },
+        });
       } else {
         await AsyncStorage.setItem(`tasks-${username}`, JSON.stringify([task]));
+        dispatch({
+          type: 'ADD_TASK',
+          payload: {
+            tasks: [task],
+          },
+        });
       }
     } catch (error) {
       console.log(error);
+      return;
     }
-
-    // Agregar la tarea al state
-    dispatch({
-      type: 'ADD_TASK',
-      payload: {
-        task,
-      },
-    });
   };
 
   const loadTasks = async username => {
@@ -89,6 +96,31 @@ const TasksState = props => {
     });
   };
 
+  const deleteTask = async (id, username) => {
+    // Eliminar la tarea del AsyncStorage
+    try {
+      const tasks = await AsyncStorage.getItem(`tasks-${username}`);
+      if (tasks) {
+        const tasksParsed = JSON.parse(tasks);
+        const newTasks = tasksParsed.filter(item => item.id !== id);
+        await AsyncStorage.setItem(
+          `tasks-${username}`,
+          JSON.stringify(newTasks),
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    // Eliminar la tarea del state
+    dispatch({
+      type: 'DELETE_TASK',
+      payload: {
+        id,
+      },
+    });
+  };
+
   return (
     <TasksContext.Provider
       value={{
@@ -96,6 +128,7 @@ const TasksState = props => {
         addTask,
         loadTasks,
         updateTask,
+        deleteTask,
       }}>
       {props.children}
     </TasksContext.Provider>
