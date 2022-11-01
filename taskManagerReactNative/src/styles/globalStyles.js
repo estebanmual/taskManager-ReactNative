@@ -125,7 +125,7 @@ const globalStyles = StyleSheet.create({
     ...theme.fonts.medium,
     fontSize: 24,
     color: theme.colors.primary,
-    marginLeft: '2.5%',
+    textAlign: 'center',
   },
 });
 

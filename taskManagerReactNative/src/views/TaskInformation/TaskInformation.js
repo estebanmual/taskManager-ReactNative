@@ -1,5 +1,12 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {Text, View, StyleSheet, Pressable, Alert} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  Alert,
+  ScrollView,
+} from 'react-native';
 
 import {TextInput, Button, FAB} from 'react-native-paper';
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
@@ -82,7 +89,9 @@ const TaskInformation = props => {
   };
 
   return (
-    <View style={styles.viewContainer}>
+    <ScrollView
+      style={styles.viewContainer}
+      contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}>
       <View style={styles.container}>
         <View style={globalStyles.inputContainer}>
           <TextInput
@@ -144,15 +153,13 @@ const TaskInformation = props => {
           onPress={() => setEditable(!editable)}
         />
       )}
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   viewContainer: {
     backgroundColor: theme.colors.background,
-    flex: 1,
-    justifyContent: 'center',
   },
   container: {
     width: '85%',

@@ -1,7 +1,7 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
 
-import {IconButton} from 'react-native-paper';
+import {IconButton, TextInput, Searchbar} from 'react-native-paper';
 
 import SessionContext from '../../context/session/sessionContext';
 import {globalStyles, theme} from '../../styles/globalStyles';
@@ -9,9 +9,10 @@ import {formatearFecha} from '../../helpers';
 
 const Weather = () => {
   const {userInformation} = useContext(SessionContext);
-  const [city, setCity] = useState(userInformation.city);
+  const [city, setCity] = useState('');
   const [search, setSearch] = useState(true);
   const [forecast, setForecast] = useState([]);
+  const [notFoundCity, setNotFoundCity] = useState(true);
 
   const isToday = date => {
     const today = new Date().toLocaleDateString();
@@ -20,7 +21,13 @@ const Weather = () => {
   };
 
   useEffect(() => {
-    if (search) {
+    if (userInformation) {
+      setCity(userInformation.city);
+    }
+  }, [userInformation]);
+
+  useEffect(() => {
+    if (search && city) {
       const getData = async () => {
         const appId = '91fb87b7f86e4865a9b54354222810';
         const url = `http://api.weatherapi.com/v1/forecast.json?key=${appId}&q=${city}&days=7`;
@@ -28,62 +35,76 @@ const Weather = () => {
           const response = await fetch(url);
           const data = await response.json();
           setForecast(data.forecast.forecastday);
+          setNotFoundCity(false);
           setSearch(false);
         } catch (error) {
           console.log(error);
+          setNotFoundCity(true);
+          setSearch(false);
         }
       };
       getData();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
+  }, [search, city]);
   return (
     <View>
-      <View style={styles.searchbar}>
-        <Text style={globalStyles.subtitle}>{city}</Text>
-        <IconButton
-          icon="magnify"
-          iconColor={theme.colors.secondary}
-          size={30}
-          style={styles.magnifier}
+      <View style={styles.searchbarContainer}>
+        <Searchbar
+          onChangeText={text => setCity(text)}
+          value={city}
+          onIconPress={() => setSearch(true)}
+          style={styles.searchbar}
+          iconColor={theme.colors.primary}
+          inputStyle={styles.searchbarInput}
         />
       </View>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View style={styles.forecast}>
-          {forecast.map((day, i) => (
-            <View
-              key={day.date}
-              style={[styles.day, isToday(day.date) && styles.today]}>
-              <Text
-                style={[styles.dayText, isToday(day.date) && {color: '#FFF'}]}>
-                {isToday(day.date)
-                  ? 'Today'
-                  : formatearFecha(day.date, 'corta')}
-              </Text>
-              <Image
-                style={styles.image}
-                source={{
-                  uri: `http:${day.day.condition.icon}`,
-                }}
-              />
-              <Text
-                style={[styles.dayText, isToday(day.date) && {color: '#FFF'}]}>
-                {day.day.avgtemp_c}°
-              </Text>
-            </View>
-          ))}
-        </View>
-      </ScrollView>
+      {notFoundCity ? (
+        <Text style={styles.error}>City not found</Text>
+      ) : (
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View style={styles.forecast}>
+            {forecast.map((day, i) => (
+              <View
+                key={day.date}
+                style={[styles.day, isToday(day.date) && styles.today]}>
+                <Text
+                  style={[
+                    styles.dayText,
+                    isToday(day.date) && {color: '#FFF'},
+                  ]}>
+                  {isToday(day.date)
+                    ? 'Today'
+                    : formatearFecha(day.date, 'corta')}
+                </Text>
+                <Image
+                  style={styles.image}
+                  source={{
+                    uri: `http:${day.day.condition.icon}`,
+                  }}
+                />
+                <Text
+                  style={[
+                    styles.dayText,
+                    isToday(day.date) && {color: '#FFF'},
+                  ]}>
+                  {day.day.avgtemp_c}°
+                </Text>
+              </View>
+            ))}
+          </View>
+        </ScrollView>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  searchbar: {
+  searchbarContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginVertical: 10,
+    paddingLeft: '2.5%',
   },
   forecast: {
     flexDirection: 'row',
@@ -118,6 +139,25 @@ const styles = StyleSheet.create({
   image: {
     width: 61,
     height: 61,
+  },
+  error: {
+    ...theme.fonts.regular,
+    fontWeight: '700',
+    fontSize: 16,
+    lineHeight: 16,
+    color: theme.colors.error,
+    textAlign: 'center',
+  },
+  searchbar: {
+    width: '97.5%',
+  },
+  searchbarInput: {
+    ...theme.fonts.regular,
+    fontSize: 24,
+    color: theme.colors.primary,
+    flex: 1,
+    flexDirection: 'row',
+    textAlign: 'center',
   },
 });
 
