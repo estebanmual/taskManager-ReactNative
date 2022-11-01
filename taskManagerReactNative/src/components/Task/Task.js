@@ -25,7 +25,7 @@ const Task = props => {
   };
 
   return (
-    <Pressable onLongPress={() => openTaskDetails()}>
+    <Pressable onPress={() => openTaskDetails()}>
       <View style={styles.taskContainer}>
         <Checkbox
           status={checked ? 'checked' : 'unchecked'}
@@ -55,7 +55,7 @@ const Task = props => {
               expiredTask && styles.expiredTask,
               checked && styles.completedTask,
             ]}>
-            {formatearFecha(task.date)}
+            {formatearFecha(task.date, 'completaCorta')}
           </Text>
         </View>
       </View>

@@ -1,5 +1,12 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {Text, View, StyleSheet, Pressable, Alert} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Pressable,
+  Alert,
+  ScrollView,
+} from 'react-native';
 
 import {TextInput, Button, FAB} from 'react-native-paper';
 import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
@@ -7,7 +14,7 @@ import {DateTimePickerAndroid} from '@react-native-community/datetimepicker';
 import {globalStyles, theme} from '../../styles/globalStyles';
 import TasksContext from '../../context/tasks/tasksContext';
 import SessionContext from '../../context/session/sessionContext';
-import {generarId} from '../../helpers';
+import {generarId, formatearFecha} from '../../helpers';
 
 const TaskInformation = props => {
   const {addTask, deleteTask, updateTask} = useContext(TasksContext);
@@ -82,7 +89,9 @@ const TaskInformation = props => {
   };
 
   return (
-    <View style={styles.viewContainer}>
+    <ScrollView
+      style={styles.viewContainer}
+      contentContainerStyle={{flexGrow: 1, justifyContent: 'center'}}>
       <View style={styles.container}>
         <View style={globalStyles.inputContainer}>
           <TextInput
@@ -109,7 +118,7 @@ const TaskInformation = props => {
               label="Date"
               style={globalStyles.input}
               editable={false}
-              value={date.toLocaleDateString()}
+              value={formatearFecha(date)}
             />
           </Pressable>
         </View>
@@ -144,15 +153,13 @@ const TaskInformation = props => {
           onPress={() => setEditable(!editable)}
         />
       )}
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   viewContainer: {
     backgroundColor: theme.colors.background,
-    flex: 1,
-    justifyContent: 'center',
   },
   container: {
     width: '85%',

@@ -78,22 +78,21 @@ const TasksState = props => {
           }
           return item;
         });
+        const orderTasks = bubbleSortByDate(newTasks);
         await AsyncStorage.setItem(
           `tasks-${username}`,
-          JSON.stringify(newTasks),
+          JSON.stringify(orderTasks),
         );
+        dispatch({
+          type: 'UPDATE_TASK',
+          payload: {
+            tasks: orderTasks,
+          },
+        });
       }
     } catch (error) {
       console.log(error);
     }
-
-    // Agregar la tarea al state
-    dispatch({
-      type: 'UPDATE_TASK',
-      payload: {
-        task,
-      },
-    });
   };
 
   const deleteTask = async (id, username) => {

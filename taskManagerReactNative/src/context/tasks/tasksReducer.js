@@ -13,12 +13,7 @@ const TasksReducer = (state, action) => {
     case 'UPDATE_TASK':
       return {
         ...state,
-        tasks: state.tasks.map(item => {
-          if (item.id === action.payload.task.id) {
-            return action.payload.task;
-          }
-          return item;
-        }),
+        tasks: action.payload.tasks,
       };
     case 'DELETE_TASK':
       return {

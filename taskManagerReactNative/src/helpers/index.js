@@ -1,10 +1,29 @@
-export const formatearFecha = fecha => {
+export const formatearFecha = (fecha, modo = 'basica') => {
   const fechaNueva = new Date(fecha);
-  const opciones = {
-    year: 'numeric',
-    month: 'short',
-    day: '2-digit',
-  };
+  let opciones;
+
+  switch (modo) {
+    case 'basica':
+      opciones = {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+      };
+      break;
+    case 'corta':
+      opciones = {
+        month: 'short',
+        day: 'numeric',
+      };
+      break;
+    case 'completaCorta':
+      opciones = {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      };
+  }
   return fechaNueva.toLocaleDateString('es-ES', opciones);
 };
 
