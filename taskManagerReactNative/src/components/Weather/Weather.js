@@ -34,6 +34,7 @@ const Weather = () => {
         try {
           const response = await fetch(url);
           const data = await response.json();
+          setCity(data.location.name);
           setForecast(data.forecast.forecastday);
           setNotFoundCity(false);
           setSearch(false);
