@@ -1,16 +1,15 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
 
-import {IconButton, TextInput, Searchbar} from 'react-native-paper';
+import {Searchbar} from 'react-native-paper';
 
 import SessionContext from '../../context/session/sessionContext';
-import {globalStyles, theme} from '../../styles/globalStyles';
+import {theme} from '../../styles/globalStyles';
 import {formatearFecha} from '../../helpers';
 
 const Weather = () => {
   const {userInformation} = useContext(SessionContext);
   const [city, setCity] = useState('');
-  const [search, setSearch] = useState(true);
   const [forecast, setForecast] = useState([]);
   const [notFoundCity, setNotFoundCity] = useState(true);
 
@@ -20,40 +19,36 @@ const Weather = () => {
     return today === forecastDate;
   };
 
-  useEffect(() => {
-    if (userInformation) {
-      setCity(userInformation.city);
+  const fetchForecast = async cityProp => {
+    const appId = '91fb87b7f86e4865a9b54354222810';
+    console.log(city);
+    const url = `http://api.weatherapi.com/v1/forecast.json?key=${appId}&q=${
+      cityProp ? cityProp : city
+    }&days=7`;
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      setCity(data.location.name);
+      setForecast(data.forecast.forecastday);
+      setNotFoundCity(false);
+    } catch (error) {
+      console.log(error);
+      setNotFoundCity(true);
     }
-  }, [userInformation]);
+  };
 
   useEffect(() => {
-    if (search && city) {
-      const getData = async () => {
-        const appId = '91fb87b7f86e4865a9b54354222810';
-        const url = `http://api.weatherapi.com/v1/forecast.json?key=${appId}&q=${city}&days=7`;
-        try {
-          const response = await fetch(url);
-          const data = await response.json();
-          setCity(data.location.name);
-          setForecast(data.forecast.forecastday);
-          setNotFoundCity(false);
-          setSearch(false);
-        } catch (error) {
-          console.log(error);
-          setNotFoundCity(true);
-          setSearch(false);
-        }
-      };
-      getData();
-    }
-  }, [search, city]);
+    setCity(userInformation.city);
+    fetchForecast(userInformation.city);
+  }, []);
+
   return (
     <View>
       <View style={styles.searchbarContainer}>
         <Searchbar
           onChangeText={text => setCity(text)}
           value={city}
-          onIconPress={() => setSearch(true)}
+          onIconPress={() => fetchForecast()}
           style={styles.searchbar}
           iconColor={theme.colors.primary}
           inputStyle={styles.searchbarInput}
@@ -148,6 +143,7 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     color: theme.colors.error,
     textAlign: 'center',
+    marginVertical: 15,
   },
   searchbar: {
     width: '97.5%',
@@ -156,8 +152,6 @@ const styles = StyleSheet.create({
     ...theme.fonts.regular,
     fontSize: 24,
     color: theme.colors.primary,
-    flex: 1,
-    flexDirection: 'row',
     textAlign: 'center',
   },
 });
