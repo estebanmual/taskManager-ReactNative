@@ -6,7 +6,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {ActivityIndicator, Provider as PaperProvider} from 'react-native-paper';
 
-// Vistas
+// Views
 import Login from './src/views/Login/Login';
 import SignUp from './src/views/SignUp/SignUp';
 import Home from './src/views/Home/Home';
@@ -30,6 +30,8 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  /* Checking if the user is logged in or not. If the user is logged in, it will show the home screen.
+  If the user is not logged in, it will show the login screen. */
   if (isLoading) {
     return (
       <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>

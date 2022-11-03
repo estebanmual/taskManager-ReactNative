@@ -11,17 +11,21 @@ const Login = props => {
   const {navigation} = props;
   const {login, loading} = useContext(SessionContext);
 
-  //Inputs del formulario
+  //Form inputs
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [secureTextEntry, setSecureTextEntry] = useState(true);
 
-  //Validaciones del formulario
+  //Form validations
   const {validate, isFieldInError, getErrorsInField, isFormValid} =
     useValidation({
       state: {username, password},
     });
 
+  /**
+   * If the field is in error, return the error message.
+   * @returns An array of Text components.
+   */
   const errorMessage = field => {
     if (isFieldInError(field)) {
       return getErrorsInField(field).map((errormessage, index) => (
@@ -32,6 +36,10 @@ const Login = props => {
     }
   };
 
+  /**
+   * If the form is valid, then set the username and password to an object, then call the login
+   * function with the userInfo object and the navigation object.
+   */
   const onSubmit = () => {
     validate({
       username: {required: true},
@@ -50,6 +58,7 @@ const Login = props => {
       }, 1000);
     }
   };
+
   return (
     <View style={globalStyles.registrationContainer}>
       <View style={globalStyles.registrationTitleContainer}>

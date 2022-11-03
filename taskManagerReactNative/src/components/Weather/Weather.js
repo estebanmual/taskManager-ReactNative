@@ -9,16 +9,23 @@ import {formatearFecha} from '../../helpers';
 
 const Weather = () => {
   const {userInformation} = useContext(SessionContext);
-  const [city, setCity] = useState('');
+  const [city, setCity] = useState(null);
   const [forecast, setForecast] = useState([]);
-  const [notFoundCity, setNotFoundCity] = useState(true);
 
+  /**
+   * If the date passed in is today, return true, otherwise return false.
+   * @returns A boolean value.
+   */
   const isToday = date => {
     const today = new Date().toLocaleDateString();
     const forecastDate = new Date(date).toLocaleDateString();
     return today === forecastDate;
   };
 
+  /**
+   * The function fetches the forecast for the city that is passed in as a parameter, or if no
+   * parameter is passed in, it fetches the forecast for the city that is stored in the state.
+   */
   const fetchForecast = async cityProp => {
     const appId = '91fb87b7f86e4865a9b54354222810';
     console.log(city);
@@ -30,16 +37,19 @@ const Weather = () => {
       const data = await response.json();
       setCity(data.location.name);
       setForecast(data.forecast.forecastday);
-      setNotFoundCity(false);
     } catch (error) {
       console.log(error);
-      setNotFoundCity(true);
+      setCity(null);
+      setForecast([]);
     }
   };
 
+  /* A hook that is called when the component is mounted. It sets the city to the user's city and
+  fetches the forecast for that city. */
   useEffect(() => {
     setCity(userInformation.city);
     fetchForecast(userInformation.city);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -54,7 +64,7 @@ const Weather = () => {
           inputStyle={styles.searchbarInput}
         />
       </View>
-      {notFoundCity ? (
+      {!city ? (
         <Text style={styles.error}>City not found</Text>
       ) : (
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>

@@ -1,6 +1,5 @@
 import React, {useContext} from 'react';
 import {View, Text, Pressable, StyleSheet} from 'react-native';
-import {longPressHandlerName} from 'react-native-gesture-handler/lib/typescript/handlers/LongPressGestureHandler';
 
 import {Avatar} from 'react-native-paper';
 
@@ -16,6 +15,8 @@ const Header = props => {
     navigation.navigate('Profile');
   };
 
+  /* Checking if the userInformation is true. If it is true, it will return the view. If it is
+  false, it will return null. */
   if (userInformation) {
     return (
       <View style={styles.container}>

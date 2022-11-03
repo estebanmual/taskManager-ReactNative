@@ -22,35 +22,38 @@ const Home = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInformation]);
 
-  return (
-    <>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Header navigation={navigation} />
-        <Weather />
-        <Text style={globalStyles.subtitle}>
-          {tasks.length === 0 ? 'No tasks' : 'Tasks'}
-        </Text>
-        <View style={{marginBottom: 15}}>
-          {tasks.map(task => (
-            <Task
-              key={task.id}
-              task={task}
-              username={userInformation.username}
-              navigate={navigation.navigate}
-            />
-          ))}
-        </View>
-      </ScrollView>
-      <FAB
-        style={globalStyles.fab}
-        icon="plus"
-        color={'#FFF'}
-        onPress={() =>
-          navigation.navigate('TaskInformation', {headerTitle: 'New Task'})
-        }
-      />
-    </>
-  );
+  if (userInformation) {
+    return (
+      <>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Header navigation={navigation} />
+          <Weather />
+          <Text style={globalStyles.subtitle}>
+            {tasks.length === 0 ? 'No tasks' : 'Tasks'}
+          </Text>
+          <View style={{marginBottom: 15}}>
+            {tasks.map(task => (
+              <Task
+                key={task.id}
+                task={task}
+                username={userInformation.username}
+                navigate={navigation.navigate}
+              />
+            ))}
+          </View>
+        </ScrollView>
+        <FAB
+          style={globalStyles.fab}
+          icon="plus"
+          color={'#FFF'}
+          onPress={() =>
+            navigation.navigate('TaskInformation', {headerTitle: 'New Task'})
+          }
+        />
+      </>
+    );
+  }
+  return null;
 };
 
 export default Home;

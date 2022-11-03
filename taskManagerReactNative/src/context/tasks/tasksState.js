@@ -7,17 +7,21 @@ import TasksContext from './tasksContext';
 import {bubbleSortByDate} from '../../helpers';
 
 const TasksState = props => {
-  // Crear el state inicial
+  /* Setting the initial state of the tasks array to an empty array. */
   const initialState = {
     tasks: [],
   };
 
-  // useReducer con dispatch para ejecutar las funciones
   const [state, dispatch] = useReducer(TasksReducer, initialState);
 
   // Actions
+  /**
+   * It adds a task to the AsyncStorage and then dispatches an action to the reducer.
+   * @param task - {
+   * @param username - string
+   * @returns the value of the last expression in the function.
+   */
   const addTask = async (task, username) => {
-    // Guardar la tarea en el AsyncStorage
     try {
       const tasks = await AsyncStorage.getItem(`tasks-${username}`);
       if (tasks) {
@@ -49,8 +53,11 @@ const TasksState = props => {
     }
   };
 
+  /**
+   * This function will load the tasks from the AsyncStorage and dispatch an action to the reducer to
+   * update the state.
+   */
   const loadTasks = async username => {
-    // Cargar las tareas del AsyncStorage
     try {
       const tasks = await AsyncStorage.getItem(`tasks-${username}`);
       if (tasks) {
@@ -66,8 +73,14 @@ const TasksState = props => {
     }
   };
 
+  /**
+   * It takes a task and a username as parameters, gets the tasks from AsyncStorage, maps through the
+   * tasks, and if the task id matches the task id passed in, it returns the task, otherwise it returns
+   * the item. Then it orders the tasks by date and sets the tasks in AsyncStorage.
+   * @param task - object
+   * @param username - string
+   */
   const updateTask = async (task, username) => {
-    // Guardar la tarea en el AsyncStorage
     try {
       const tasks = await AsyncStorage.getItem(`tasks-${username}`);
       if (tasks) {
@@ -95,8 +108,12 @@ const TasksState = props => {
     }
   };
 
+  /**
+   * It deletes a task from the AsyncStorage and then dispatches an action to the reducer.
+   * @param id - the id of the task to be deleted
+   * @param username - the username of the user
+   */
   const deleteTask = async (id, username) => {
-    // Eliminar la tarea del AsyncStorage
     try {
       const tasks = await AsyncStorage.getItem(`tasks-${username}`);
       if (tasks) {
@@ -110,8 +127,6 @@ const TasksState = props => {
     } catch (error) {
       console.log(error);
     }
-
-    // Eliminar la tarea del state
     dispatch({
       type: 'DELETE_TASK',
       payload: {

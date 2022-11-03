@@ -11,7 +11,7 @@ const UserInformationForm = props => {
   const {navigation} = props;
   const {signUp, userInformation, logOut, loading} = useContext(SessionContext);
 
-  //Inputs del formulario
+  //Form inputs
   const [name, setName] = useState('');
   const [lastname, setLastname] = useState('');
   const [username, setUsername] = useState('');
@@ -20,7 +20,10 @@ const UserInformationForm = props => {
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [canEdit, setCanEdit] = useState(true);
 
-  // SignUp o Editar perfil
+  /*
+    Setting the state of the form to the userInformation object.
+    With this we will declare if we are signing up or editing
+  */
   useEffect(() => {
     if (userInformation) {
       setName(userInformation.name);
@@ -33,12 +36,16 @@ const UserInformationForm = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  //Validaciones del formulario
+  //Form validations
   const {validate, isFieldInError, getErrorsInField, isFormValid} =
     useValidation({
       state: {name, lastname, username, password, city},
     });
 
+  /**
+   * If the field is in error, return the error message.
+   * @returns An array of Text components.
+   */
   const errorMessage = field => {
     if (isFieldInError(field)) {
       return getErrorsInField(field).map((errormessage, index) => (
@@ -49,6 +56,10 @@ const UserInformationForm = props => {
     }
   };
 
+  /**
+   * When the user clicks the logout button, the loading function is called, and after 1 second, the
+   * logout function is called.
+   */
   const logOutHandler = () => {
     loading();
     setTimeout(() => {
@@ -56,6 +67,11 @@ const UserInformationForm = props => {
     }, 1000);
   };
 
+  /**
+   * The function onSubmit() is called when the user presses the submit button. It validates the form
+   * and if the form is valid, it creates a userInformation object with the user's information and a
+   * random avatar number. Then it calls the signUp() function and navigates to the Home screen.
+   */
   const onSubmit = () => {
     validate({
       name: {required: true},
@@ -74,11 +90,14 @@ const UserInformationForm = props => {
       };
       userInformation.avatarNumber = Math.floor(Math.random() * 50) + 1;
       signUp(userInformation);
+
+      /* Clearing the form after the user submits it. */
       setName('');
       setLastname('');
       setUsername('');
       setPassword('');
       setCity('');
+
       navigation.navigate('Home');
     }
   };

@@ -1,3 +1,9 @@
+/**
+ * It takes a date and returns a string with the date formatted in a way that is readable by humans
+ * @param fecha - The date you want to format.
+ * @param [modo=basica] - 'basica'
+ * @returns Ttring with the date formatted
+ */
 export const formatearFecha = (fecha, modo = 'basica') => {
   const fechaNueva = new Date(fecha);
   let opciones;
@@ -27,12 +33,20 @@ export const formatearFecha = (fecha, modo = 'basica') => {
   return fechaNueva.toLocaleDateString('es-ES', opciones);
 };
 
+/**
+ * It generates a random string of 11 characters, then adds the current timestamp to the end of it.
+ * @returns A function that returns a string.
+ */
 export const generarId = () => {
   const random = Math.random().toString(36).substring(2, 11);
   const timestamp = Date.now().toString(36);
   return random + timestamp;
 };
 
+/**
+ * It takes an array of objects, and sorts them by date.
+ * @returns The array is being returned.
+ */
 export const bubbleSortByDate = array => {
   let swapped;
   do {
